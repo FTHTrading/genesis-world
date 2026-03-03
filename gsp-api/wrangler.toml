@@ -1,0 +1,12 @@
+name = "gsp-api"
+main = "src/worker.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ALLOWED_ORIGIN = "https://drunks.app"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gsp-investors"
+database_id = "92068460-735d-42e1-b76b-b7823073e094"

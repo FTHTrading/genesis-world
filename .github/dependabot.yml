@@ -1,0 +1,45 @@
+version: 2
+updates:
+  # Rust crates
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "rust"
+    commit-message:
+      prefix: "🔧 deps(rust):"
+
+  # Node.js — drunks-app
+  - package-ecosystem: "npm"
+    directory: "/drunks-app"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "frontend"
+    commit-message:
+      prefix: "🔧 deps(frontend):"
+
+  # Node.js — gsp-api
+  - package-ecosystem: "npm"
+    directory: "/gsp-api"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "api"
+    commit-message:
+      prefix: "🔧 deps(api):"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "🔧 deps(ci):"

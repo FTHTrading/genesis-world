@@ -1,0 +1,183 @@
+name: 🧬 GSP Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  # ──────────────────────────────────────────────
+  # RUST — Build & Test all 12 crates
+  # ──────────────────────────────────────────────
+  rust-build:
+    name: 🔷 Rust Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Build workspace (12 crates)
+        run: cargo build --workspace
+
+      - name: Run tests
+        run: cargo test --workspace
+
+      - name: Clippy lint
+        run: cargo clippy --workspace -- -D warnings
+        continue-on-error: true
+
+      - name: Format check
+        run: cargo fmt --all -- --check
+        continue-on-error: true
+
+      - name: Run demo (smoke test)
+        run: cargo run -p gsp-demo -- --export /tmp/report.json
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsp-epoch-report
+          path: /tmp/report.json
+
+  # ──────────────────────────────────────────────
+  # DRUNKS.APP — Build & Deploy Frontend
+  # ──────────────────────────────────────────────
+  frontend-build:
+    name: 🎮 Frontend Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: drunks-app
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: drunks-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: drunks-app-build
+          path: drunks-app/out
+
+  # ──────────────────────────────────────────────
+  # DEPLOY — Cloudflare Pages (main only)
+  # ──────────────────────────────────────────────
+  deploy-frontend:
+    name: 🚀 Deploy to Cloudflare
+    needs: [rust-build, frontend-build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: drunks-app
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: drunks-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name drunks-app --branch main --commit-dirty=true
+          workingDirectory: drunks-app
+
+  # ──────────────────────────────────────────────
+  # DEPLOY — GSP API Worker (main only)
+  # ──────────────────────────────────────────────
+  deploy-api:
+    name: ⚡ Deploy API Worker
+    needs: [rust-build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: gsp-api
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: gsp-api/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          workingDirectory: gsp-api
+
+  # ──────────────────────────────────────────────
+  # EPOCH REPORT — Post-build analysis
+  # ──────────────────────────────────────────────
+  epoch-analysis:
+    name: 📊 Epoch Analysis
+    needs: [rust-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download epoch report
+        uses: actions/download-artifact@v4
+        with:
+          name: gsp-epoch-report
+
+      - name: Analyze epoch output
+        run: |
+          echo "📊 GSP Epoch Report Analysis"
+          echo "──────────────────────────────"
+          if [ -f report.json ]; then
+            echo "✅ Report generated successfully"
+            cat report.json | python3 -m json.tool | head -50
+          else
+            echo "⚠️ No report found"
+          fi
