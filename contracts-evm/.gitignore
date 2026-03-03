@@ -9,6 +9,9 @@ coverage.json
 # Deployment artifacts (keep deployments/ folder but ignore .env)
 .env
 
+# Generated metadata (re-create with: npx ts-node scripts/vie/generate_metadata.ts)
+metadata/
+
 # Local deployment secrets
 *.key
 *.pem

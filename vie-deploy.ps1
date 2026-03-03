@@ -1,131 +1,323 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-  GSP Visual Identity Engine — Full Deployment Pipeline
-  Run this from the repo root: .\vie-deploy.ps1
+  GSP — One-Shot Full Deployment Automation
+  Run from ANYWHERE: powershell -File vie-deploy.ps1
 
 .DESCRIPTION
-  Automates the complete VIE launch sequence:
-    1. Compiles all 48 Solidity contracts
-    2. Generates OpenSea-format metadata for all 15 agents
-    3. Pins metadata to IPFS via Pinata
-    4. Deploys AgentIdentityNFT.sol to Polygon mainnet
-    5. Mints all 15 soul-bound Genesis Agent NFTs
-
-  Prerequisites:
-    - contracts-evm/.env must exist with all 5 values filled in
-    - ~3 MATIC in deployer wallet for gas
-    - Valid PINATA_JWT in .env
+  Handles EVERYTHING:
+    0. Finds the repo no matter where you run it from
+    1. Creates .env interactively if missing (asks for each key)
+    2. Installs npm deps if needed
+    3. Compiles all Solidity contracts
+    4. Generates OpenSea-format metadata for all 15 agents
+    5. Pins metadata to IPFS via Pinata
+    6. Deploys AgentIdentityNFT to Polygon mainnet
+    7. Mints all 15 soul-bound Genesis Agent NFTs
+    8. Patches the NFT gallery page with the deployed contract address
+    9. Commits + pushes everything to GitHub
 
 .EXAMPLE
-  .\vie-deploy.ps1              # Full pipeline
-  .\vie-deploy.ps1 -SkipIPFS   # Skip IPFS upload (use existing _ipfs_cids.json)
-  .\vie-deploy.ps1 -Only mint  # Only run the mint step
+  .\vie-deploy.ps1                    # Full pipeline (interactive)
+  .\vie-deploy.ps1 -SkipIPFS          # Skip IPFS (reuse existing CIDs)
+  .\vie-deploy.ps1 -Only compile      # Just compile
+  .\vie-deploy.ps1 -Only generate     # Just generate metadata
+  .\vie-deploy.ps1 -Only mint         # Just deploy + mint
+  .\vie-deploy.ps1 -DeployTokens      # Deploy core tokens + vault FIRST, then NFTs
 #>
 
 param(
     [switch]$SkipIPFS,
+    [switch]$DeployTokens,
     [ValidateSet("all","compile","generate","upload","mint")]
     [string]$Only = "all"
 )
 
 $ErrorActionPreference = "Stop"
-$contractsDir = Join-Path $PSScriptRoot "contracts-evm"
 
-# ── Banner ────────────────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 0: Find the repo root — works no matter where you run this from
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Try $PSScriptRoot first (when run as a file), then known paths
+$repoRoot = $null
+$candidates = @(
+    $PSScriptRoot,
+    "C:\Users\Kevan\genesis-sentience-protocol",
+    (Join-Path $env:USERPROFILE "genesis-sentience-protocol"),
+    (Get-Location).Path
+)
+
+foreach ($c in $candidates) {
+    if ($c -and (Test-Path (Join-Path $c "contracts-evm\hardhat.config.ts"))) {
+        $repoRoot = $c
+        break
+    }
+}
+
+if (-not $repoRoot) {
+    Write-Host "`n  FATAL: Could not find genesis-sentience-protocol repo." -ForegroundColor Red
+    Write-Host "  Run this script from inside the repo, or place it at the repo root.`n" -ForegroundColor Red
+    exit 1
+}
+
+$contractsDir = Join-Path $repoRoot "contracts-evm"
+$drunksDir = Join-Path $repoRoot "drunks-app"
+
+# Lock the working directory
+Set-Location $repoRoot
+
+# ══════════════════════════════════════════════════════════════════════════════
+# BANNER
+# ══════════════════════════════════════════════════════════════════════════════
+
 Write-Host ""
-Write-Host "╔══════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║   GSP VISUAL IDENTITY ENGINE — DEPLOY PIPELINE  ║" -ForegroundColor Cyan
-Write-Host "║          Genesis Sentience Protocol v0.1         ║" -ForegroundColor Cyan
-Write-Host "╚══════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
+Write-Host "║    GSP FULL DEPLOYMENT PIPELINE — AUTOMATED           ║" -ForegroundColor Cyan
+Write-Host "║    Genesis Sentience Protocol v0.1                    ║" -ForegroundColor Cyan
+Write-Host "║    Repo: $repoRoot" -ForegroundColor Cyan
+Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
 Write-Host ""
 
-# ── Validate .env ─────────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 1: .env setup — interactive if missing
+# ══════════════════════════════════════════════════════════════════════════════
+
 $envPath = Join-Path $contractsDir ".env"
-if (-not (Test-Path $envPath)) {
-    Write-Host "  ERROR: .env not found at $envPath" -ForegroundColor Red
+$envVars = [ordered]@{
+    DEPLOYER_PRIVATE_KEY = @{ prompt = "Deployer wallet PRIVATE KEY (no 0x prefix)"; secret = $true; default = "" }
+    POLYGON_RPC_URL      = @{ prompt = "Polygon RPC URL"; secret = $false; default = "https://polygon-rpc.com" }
+    POLYGONSCAN_API_KEY  = @{ prompt = "PolygonScan API key (for contract verification)"; secret = $false; default = "" }
+    OWNER_ADDRESS        = @{ prompt = "Owner/treasury wallet address"; secret = $false; default = "0xffBC1353a3e8cc75643382e7AB745a5b08C762b5" }
+    PINATA_JWT           = @{ prompt = "Pinata JWT (from app.pinata.cloud/keys)"; secret = $true; default = "" }
+    OPENSEA_API_KEY      = @{ prompt = "OpenSea API key"; secret = $false; default = "043dFI7URPiI9CuL6Sdbfhz1P8GF6VYFKH9vKkHb2MWspBOR" }
+}
+
+# Placeholder patterns that mean "not filled in"
+$placeholders = @("your_private_key_here", "your_polygonscan_api_key", "your_pinata_jwt_here",
+                  "your_opensea_api_key_here", "0xYourOwnerAddressHere", "YOUR_ALCHEMY_KEY")
+
+function Is-Placeholder([string]$val) {
+    if ([string]::IsNullOrWhiteSpace($val)) { return $true }
+    foreach ($ph in $placeholders) { if ($val -like "*$ph*") { return $true } }
+    return $false
+}
+
+# Load existing .env if present
+$existing = @{}
+if (Test-Path $envPath) {
+    Get-Content $envPath | ForEach-Object {
+        if ($_ -match "^\s*([A-Z_]+)\s*=\s*(.+)$") {
+            $existing[$Matches[1]] = $Matches[2].Trim()
+        }
+    }
+}
+
+$needsSetup = $false
+$envLines = @("# GSP Contracts — Environment Variables", "# Auto-generated by vie-deploy.ps1 on $(Get-Date -Format 'yyyy-MM-dd HH:mm')", "# NEVER commit this file to git.", "")
+
+foreach ($key in $envVars.Keys) {
+    $info = $envVars[$key]
+    $currentVal = $existing[$key]
+
+    if ($currentVal -and -not (Is-Placeholder $currentVal)) {
+        # Already has a real value — keep it
+        $envLines += "$key=$currentVal"
+    } else {
+        # Need to ask
+        if (-not $needsSetup) {
+            Write-Host "  ┌─ .ENV SETUP (missing values detected)" -ForegroundColor Yellow
+            Write-Host "  │  Press Enter to accept [defaults] shown in brackets." -ForegroundColor DarkGray
+            Write-Host "  │" -ForegroundColor Yellow
+            $needsSetup = $true
+        }
+
+        $defaultDisplay = if ($info.default) { " [$($info.default)]" } else { "" }
+
+        if ($info.secret) {
+            Write-Host "  │  $($info.prompt)$defaultDisplay" -ForegroundColor White -NoNewline
+            $input = Read-Host " "
+        } else {
+            Write-Host "  │  $($info.prompt)$defaultDisplay" -ForegroundColor White -NoNewline
+            $input = Read-Host " "
+        }
+
+        $value = if ([string]::IsNullOrWhiteSpace($input)) { $info.default } else { $input.Trim() }
+
+        if ([string]::IsNullOrWhiteSpace($value)) {
+            Write-Host "  │  WARNING: $key left blank — some features may not work." -ForegroundColor DarkYellow
+        }
+        $envLines += "$key=$value"
+    }
+}
+
+# Write .env
+$envLines | Set-Content $envPath -Encoding UTF8
+if ($needsSetup) {
+    Write-Host "  │" -ForegroundColor Yellow
+    Write-Host "  └─ .env written to $envPath" -ForegroundColor Green
+} else {
+    Write-Host "  ✓ .env validated (all values present)" -ForegroundColor Green
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 2: Ensure npm dependencies are installed
+# ══════════════════════════════════════════════════════════════════════════════
+
+$nodeModules = Join-Path $contractsDir "node_modules"
+if (-not (Test-Path (Join-Path $nodeModules ".package-lock.json"))) {
     Write-Host ""
-    Write-Host "  Run:" -ForegroundColor Yellow
-    Write-Host "    Copy-Item contracts-evm\.env.example contracts-evm\.env" -ForegroundColor Yellow
-    Write-Host "  Then fill in DEPLOYER_PRIVATE_KEY, POLYGON_RPC_URL," -ForegroundColor Yellow
-    Write-Host "  POLYGONSCAN_API_KEY, OWNER_ADDRESS, PINATA_JWT" -ForegroundColor Yellow
-    Write-Host ""
-    exit 1
+    Write-Host "  ┌─ INSTALL — npm dependencies" -ForegroundColor Cyan
+    Push-Location $contractsDir
+    npm install --legacy-peer-deps 2>&1 | Out-Null
+    Pop-Location
+    Write-Host "  └─ Done." -ForegroundColor Green
+} else {
+    Write-Host "  ✓ npm dependencies present" -ForegroundColor Green
 }
 
-# Check required keys
-$required = @("DEPLOYER_PRIVATE_KEY", "POLYGON_RPC_URL", "POLYGONSCAN_API_KEY", "OWNER_ADDRESS", "PINATA_JWT")
-$envContent = Get-Content $envPath -Raw
-$missing = @()
-foreach ($key in $required) {
-    if ($envContent -notmatch "$key=.+") { $missing += $key }
-}
-if ($missing.Count -gt 0) {
-    Write-Host "  ERROR: Missing .env values: $($missing -join ', ')" -ForegroundColor Red
-    exit 1
-}
+# ══════════════════════════════════════════════════════════════════════════════
+# RUNNER HELPER — always runs in contracts-evm directory
+# ══════════════════════════════════════════════════════════════════════════════
 
-Write-Host "  ✓ .env validated" -ForegroundColor Green
-
-# ── Helper ────────────────────────────────────────────────────────────────────
-function Step {
+function Run-Step {
     param([string]$label, [string]$cmd)
     Write-Host ""
     Write-Host "  ┌─ $label" -ForegroundColor Cyan
+    Write-Host "  │  > $cmd" -ForegroundColor DarkGray
+
     Push-Location $contractsDir
     try {
-        Invoke-Expression $cmd
-        if ($LASTEXITCODE -ne 0) { throw "Command failed: $cmd" }
-    } finally {
+        $output = Invoke-Expression "$cmd 2>&1" | Out-String
+        Write-Host $output
+
+        # Check for actual failure messages (not just PowerShell stderr noise)
+        if ($output -match "Error HH|FATAL|Cannot find module|CompilerError|Error:.*revert") {
+            throw "Step failed. See output above."
+        }
+    } catch {
         Pop-Location
+        Write-Host "  └─ FAILED: $_" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "  Pipeline halted. Fix the error and re-run:" -ForegroundColor Yellow
+        Write-Host "  .\vie-deploy.ps1" -ForegroundColor Yellow
+        exit 1
     }
+    Pop-Location
     Write-Host "  └─ Done." -ForegroundColor Green
 }
 
-# ── Pipeline ──────────────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════════════════════════
+# PIPELINE EXECUTION
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── Compile ───────────────────────────────────────────────────────────────────
 if ($Only -eq "all" -or $Only -eq "compile") {
-    Step "COMPILE — verifying 48 contracts" "npx hardhat compile"
+    Run-Step "COMPILE — Solidity contracts" "npx hardhat compile"
 }
 
+# ── Deploy core tokens + vault (optional) ────────────────────────────────────
+if ($DeployTokens -and ($Only -eq "all")) {
+    Run-Step "DEPLOY TOKENS — `$CORE + `$ORIGIN + 5 Rails + PatronVault" `
+             "npx hardhat run scripts/deploy/03_deploy_all.ts --network polygon"
+}
+
+# ── Generate metadata ────────────────────────────────────────────────────────
 if ($Only -eq "all" -or $Only -eq "generate") {
-    Step "GENERATE — producing 15 OpenSea metadata files" "npx ts-node scripts/vie/generate_metadata.ts"
+    Run-Step "GENERATE — 15 OpenSea metadata files" "npx ts-node scripts/vie/generate_metadata.ts"
 }
 
-if ((-not $SkipIPFS) -and ($Only -eq "all" -or $Only -eq "upload")) {
-    Step "UPLOAD — pinning metadata to IPFS via Pinata" "npx ts-node scripts/vie/upload_to_ipfs.ts"
-} elseif ($SkipIPFS) {
-    $cidPath = Join-Path $contractsDir "metadata\_ipfs_cids.json"
+# ── Upload to IPFS ────────────────────────────────────────────────────────────
+$cidPath = Join-Path $contractsDir "metadata\_ipfs_cids.json"
+
+if ($Only -eq "all" -or $Only -eq "upload") {
+    if ($SkipIPFS) {
+        if (-not (Test-Path $cidPath)) {
+            Write-Host "  ERROR: -SkipIPFS set but metadata\_ipfs_cids.json not found." -ForegroundColor Red
+            Write-Host "  Run without -SkipIPFS first." -ForegroundColor Yellow
+            exit 1
+        }
+        Write-Host "`n  SKIP IPFS upload (reusing existing _ipfs_cids.json)" -ForegroundColor Yellow
+    } else {
+        Run-Step "UPLOAD — Pin metadata to IPFS (Pinata)" "npx ts-node scripts/vie/upload_to_ipfs.ts"
+    }
+}
+
+# ── Deploy NFT + Mint ────────────────────────────────────────────────────────
+if ($Only -eq "all" -or $Only -eq "mint") {
+    # Verify CIDs exist before attempting mint
     if (-not (Test-Path $cidPath)) {
-        Write-Host "  ERROR: -SkipIPFS set but metadata\_ipfs_cids.json not found." -ForegroundColor Red
+        Write-Host "`n  ERROR: metadata/_ipfs_cids.json not found." -ForegroundColor Red
+        Write-Host "  Run the full pipeline or: .\vie-deploy.ps1 -Only generate" -ForegroundColor Yellow
+        Write-Host "  Then: .\vie-deploy.ps1 -Only upload" -ForegroundColor Yellow
         exit 1
     }
-    Write-Host "  ⏭  Skipping IPFS upload (using existing _ipfs_cids.json)" -ForegroundColor Yellow
+
+    Run-Step "DEPLOY + MINT — AgentIdentityNFT → Polygon mainnet (15 agents)" `
+             "npx hardhat run scripts/deploy/04_deploy_nft.ts --network polygon"
 }
 
-if ($Only -eq "all" -or $Only -eq "mint") {
-    Step "DEPLOY + MINT — AgentIdentityNFT.sol → Polygon mainnet" `
-         "npx hardhat run scripts/deploy/04_deploy_nft.ts --network polygon"
+# ══════════════════════════════════════════════════════════════════════════════
+# POST-DEPLOY: Patch gallery page with real contract address
+# ══════════════════════════════════════════════════════════════════════════════
+
+$nftDeployFile = Join-Path $contractsDir "deployments\polygon\nft.json"
+$galleryPage = Join-Path $drunksDir "src\app\nft-gallery\page.tsx"
+
+if ((Test-Path $nftDeployFile) -and (Test-Path $galleryPage)) {
+    $dep = Get-Content $nftDeployFile -Raw | ConvertFrom-Json
+    $addr = $dep.contracts.AgentIdentityNFT
+
+    if ($addr) {
+        $placeholder = "0x0000000000000000000000000000000000000000"
+        $galContent = Get-Content $galleryPage -Raw
+        if ($galContent -match [regex]::Escape($placeholder)) {
+            $galContent = $galContent -replace [regex]::Escape($placeholder), $addr
+            Set-Content $galleryPage $galContent -Encoding UTF8
+            Write-Host ""
+            Write-Host "  ✓ NFT gallery patched with contract: $addr" -ForegroundColor Green
+        }
+    }
 }
 
-# ── Summary ───────────────────────────────────────────────────────────────────
-$nftDeployment = Join-Path $contractsDir "deployments\polygon\nft.json"
+# ══════════════════════════════════════════════════════════════════════════════
+# POST-DEPLOY: Auto-commit + push
+# ══════════════════════════════════════════════════════════════════════════════
+
+Push-Location $repoRoot
+$hasChanges = (git status --porcelain 2>$null) -ne ""
+if ($hasChanges) {
+    Write-Host ""
+    Write-Host "  ┌─ GIT — committing deployment artifacts" -ForegroundColor Cyan
+    git add -A 2>$null
+    git commit -m "deploy(vie): automated pipeline run $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>$null
+    git push origin main 2>$null
+    Write-Host "  └─ Pushed to GitHub." -ForegroundColor Green
+}
+Pop-Location
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SUMMARY
+# ══════════════════════════════════════════════════════════════════════════════
+
 Write-Host ""
-Write-Host "╔══════════════════════════════════════════════════╗" -ForegroundColor Green
-Write-Host "║           VIE PIPELINE COMPLETE                  ║" -ForegroundColor Green
-Write-Host "╚══════════════════════════════════════════════════╝" -ForegroundColor Green
+Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Green
+Write-Host "║                PIPELINE COMPLETE                       ║" -ForegroundColor Green
+Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Green
 
-if (Test-Path $nftDeployment) {
-    $dep = Get-Content $nftDeployment | ConvertFrom-Json
+if (Test-Path $nftDeployFile) {
+    $dep = Get-Content $nftDeployFile -Raw | ConvertFrom-Json
     $addr = $dep.contracts.AgentIdentityNFT
     Write-Host ""
-    Write-Host "  Contract : $addr" -ForegroundColor White
-    Write-Host "  OpenSea  : https://opensea.io/collection/gsp-agent-identity" -ForegroundColor Cyan
-    Write-Host "  Polygon  : https://polygonscan.com/address/$addr" -ForegroundColor Cyan
+    Write-Host "  Contract  : $addr" -ForegroundColor White
+    Write-Host "  OpenSea   : https://opensea.io/collection/gsp-agent-identity" -ForegroundColor Cyan
+    Write-Host "  PolygonScan: https://polygonscan.com/address/$addr" -ForegroundColor Cyan
+    Write-Host "  Gallery   : https://drunks.app/nft-gallery" -ForegroundColor Cyan
+} else {
     Write-Host ""
-    Write-Host "  Update NFT gallery contract address:" -ForegroundColor Yellow
-    Write-Host "  drunks-app/src/app/nft-gallery/page.tsx" -ForegroundColor Yellow
-    Write-Host "  Replace: 0x0000000000000000000000000000000000000000" -ForegroundColor Yellow
-    Write-Host "  With   : $addr" -ForegroundColor Yellow
+    Write-Host "  Metadata generated. Compile verified." -ForegroundColor White
+    Write-Host "  Run full pipeline to deploy:" -ForegroundColor Yellow
+    Write-Host "    .\vie-deploy.ps1" -ForegroundColor Yellow
 }
 
 Write-Host ""
