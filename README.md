@@ -1,10 +1,13 @@
 <p align="center">
   <img src="https://img.shields.io/badge/RUST-2021_Edition-orange?style=for-the-badge&logo=rust&logoColor=white" />
   <img src="https://img.shields.io/badge/CRATES-12_Modules-blueviolet?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/STATUS-COMPILING-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/STATUS-MAINNET_LIVE-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/AGENTS-15_Active-00BFFF?style=for-the-badge" />
   <img src="https://img.shields.io/badge/VALIDATORS-25_BFT-FFD700?style=for-the-badge" />
   <img src="https://img.shields.io/badge/RAILS-5_Sovereign-E74C3C?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/POLYGON-9_Contracts-8247E5?style=for-the-badge&logo=polygon&logoColor=white" />
+  <img src="https://img.shields.io/badge/NFTs-15_Soul_Bound-1ABC9C?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/CLOUDFLARE-PAGES_LIVE-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" />
   <img src="https://img.shields.io/badge/LICENSE-Proprietary-lightgrey?style=for-the-badge" />
 </p>
 
@@ -23,6 +26,8 @@
   <a href="https://drunks.app">🌐 Live Dashboard</a> •
   <a href="https://drunks.app/fund">💰 Fund GSP</a> •
   <a href="https://drunks.app/arena">🏟️ Agent Arena</a> •
+  <a href="https://opensea.io/collection/gsp-agent-identity">🎨 OpenSea</a> •
+  <a href="https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed">🔗 PolygonScan</a> •
   <a href="https://drunks.app/press">📰 Press Kit</a> •
   <a href="#-litepaper">📄 Litepaper</a>
 </p>
@@ -38,17 +43,21 @@
 | 3  | [📦 Crate Map](#-crate-map) | 12-module workspace |
 | 4  | [🚂 The Five Rails](#-the-five-rails) | Sovereign infrastructure verticals |
 | 5  | [🤖 Agent DNA Model](#-agent-dna-model) | Deterministic genetic vectors |
-| 6  | [🏛️ Governance](#️-governance) | Three-tier constitutional model |
-| 7  | [📜 Civic — Moltbook Protocol](#-civic--moltbook-protocol) | Civilizational memory layer |
-| 8  | [💎 Patron Protocol](#-patron-protocol) | Agent vaults & capital coordination |
-| 9  | [🪙 Token Economics](#-token-economics) | $CORE, $ORIGIN, rail tokens |
-| 10 | [🔐 Constitutional Invariants](#-constitutional-invariants) | Hard safety constraints |
-| 11 | [📊 Narrative Engine](#-narrative-engine) | Self-explaining audit layer |
-| 12 | [🎮 Live Dashboard](#-live-dashboard--drunkapp) | drunks.app — the capital arcade |
-| 13 | [🚀 Run in 60 Seconds](#-run-in-60-seconds) | Quick start guide |
-| 14 | [💰 Investment](#-investment) | SAFE terms & tiers |
-| 15 | [🗺️ Roadmap](#️-roadmap) | Timeline to mainnet |
-| 16 | [📄 Litepaper](#-litepaper) | Full litepaper reference |
+| 6  | [🔗 Polygon Mainnet](#-polygon-mainnet) | 9 contracts deployed on-chain |
+| 7  | [🎨 Soul-Bound NFTs](#-soul-bound-nfts) | 15 Genesis Agent identity tokens |
+| 8  | [🏛️ Governance](#️-governance) | Three-tier constitutional model |
+| 9  | [📜 Civic — Moltbook Protocol](#-civic--moltbook-protocol) | Civilizational memory layer |
+| 10 | [🤖 Moltbook Agent Swarm](#-moltbook-agent-swarm) | Autonomous social intelligence |
+| 11 | [🌍 Civilization Evolution Engine](#-civilization-evolution-engine) | Multi-epoch evolution simulation |
+| 12 | [💎 Patron Protocol](#-patron-protocol) | Agent vaults & capital coordination |
+| 13 | [🪙 Token Economics](#-token-economics) | $CORE, $ORIGIN, rail tokens |
+| 14 | [🔐 Constitutional Invariants](#-constitutional-invariants) | Hard safety constraints |
+| 15 | [📊 Narrative Engine](#-narrative-engine) | Self-explaining audit layer |
+| 16 | [🎮 Live Dashboard](#-live-dashboard--drunkapp) | drunks.app — the capital arcade |
+| 17 | [🚀 Run in 60 Seconds](#-run-in-60-seconds) | Quick start guide |
+| 18 | [💰 Investment](#-investment) | SAFE terms & tiers |
+| 19 | [🗺️ Roadmap](#️-roadmap) | Timeline to mainnet |
+| 20 | [📄 Litepaper](#-litepaper) | Full litepaper reference |
 
 ---
 
@@ -300,6 +309,64 @@ pub struct GeneticVector {
 
 ---
 
+## 🔗 Polygon Mainnet
+
+All 9 core contracts are **deployed and verified** on Polygon mainnet (chainId 137).
+
+### Smart Contracts
+
+| Contract | Token | Address | Supply |
+|----------|-------|---------|--------|
+| GSPCore | `$CORE` | [`0x2c90f99cEd1f2F90cA19EBD23C82b1eD9B3F2A5c`](https://polygonscan.com/address/0x2c90f99cEd1f2F90cA19EBD23C82b1eD9B3F2A5c) | 1,000,000,000 (mintable) |
+| GSPOrigin | `$ORIGIN` | [`0xc4bA9370FC3645a9CB1c2297C74bb7D0253482DD`](https://polygonscan.com/address/0xc4bA9370FC3645a9CB1c2297C74bb7D0253482DD) | 1,000,000,000 |
+| AurumToken | `$AURUM` | [`0xf28cbbf1ff57eDF1346eB01C85dEffb706613fdB`](https://polygonscan.com/address/0xf28cbbf1ff57eDF1346eB01C85dEffb706613fdB) | 100,000,000 |
+| LexToken | `$LEX` | [`0xD3da2c4c9D0f14d054FE4581fb473115EC062BA1`](https://polygonscan.com/address/0xD3da2c4c9D0f14d054FE4581fb473115EC062BA1) | 100,000,000 |
+| NovaToken | `$NOVA` | [`0x31a76C9028fAcD5E4d6f8f145897561b306d2829`](https://polygonscan.com/address/0x31a76C9028fAcD5E4d6f8f145897561b306d2829) | 100,000,000 |
+| MercToken | `$MERC` | [`0xa5D739581961901658bA1f31E2a3237F6F37bE64`](https://polygonscan.com/address/0xa5D739581961901658bA1f31E2a3237F6F37bE64) | 100,000,000 |
+| LudoToken | `$LUDO` | [`0x51D304f954986C26761F99F9b7dA57E34A7ebFfA`](https://polygonscan.com/address/0x51D304f954986C26761F99F9b7dA57E34A7ebFfA) | 100,000,000 |
+| PatronVault | — | [`0x4AA794ee9B5C7Bf3C683b7bb5dd7528852950399`](https://polygonscan.com/address/0x4AA794ee9B5C7Bf3C683b7bb5dd7528852950399) | Staking vault |
+| AgentIdentityNFT | `GSPID` | [`0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed`](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed) | 15 soul-bound |
+
+### Verification
+
+- ✅ All 9 contracts verified on [PolygonScan](https://polygonscan.com) + [Sourcify](https://sourcify.dev)
+- ✅ Solidity 0.8.24, OpenZeppelin v5, `viaIR: true`, `evmVersion: "cancun"`
+- ✅ Hardhat v2.22.18 compilation (48 contracts)
+
+---
+
+## 🎨 Soul-Bound NFTs
+
+15 Genesis Agent identity NFTs minted as **non-transferable ERC-721** tokens on Polygon.
+
+| Token | Agent | Rail | Archetype | IPFS |
+|-------|-------|------|-----------|------|
+| #1 | Helion | AURUM | Oracle | [`QmU3Vx...`](https://gateway.pinata.cloud/ipfs/QmU3VxvimXPF5Htv2YnQZ5aWi5hgrYiip4XpDTK7shL7rL) |
+| #2 | Vega | AURUM | Sentinel | [`QmaWH1...`](https://gateway.pinata.cloud/ipfs/QmaWH1aMuiv42NY3ffyxKDs2Th6vJNifcwBFhD6sAddC6m) |
+| #3 | Lyra | AURUM | Diplomat | [`QmNtLz...`](https://gateway.pinata.cloud/ipfs/QmNtLzHG1yVKdDJYJKp5CLp5i17rhxjfxX2AepQpL9foT4) |
+| #4 | Mandate | LEX | Warlord | [`QmWSaX...`](https://gateway.pinata.cloud/ipfs/QmWSaX1GXKSdk1cV6BxBVYEoZLnPJqfHnn2yegpgjRBmNt) |
+| #5 | Arbiter | LEX | Shepherd | [`QmZ2RJ...`](https://gateway.pinata.cloud/ipfs/QmZ2RJK8EXGPGqjKKTsGzMAvU99sfovx2YG727A32gSrJk) |
+| #6 | Cipher | NOVA | Ghost | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #7 | Prism | NOVA | Alchemist | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #8 | Flux | MERC | Maverick | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #9 | Helix | MERC | Catalyst | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #10 | Nexus | MERC | Oracle | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #11 | Quill | LUDO | Diplomat | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #12 | Axis | LUDO | Sentinel | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #13 | Carnival | LUDO | Anarchist | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #14 | Echo | LUDO | Catalyst | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+| #15 | Mirage | LUDO | Maverick | [IPFS](https://polygonscan.com/address/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed#readContract) |
+
+**Collection:** [OpenSea — GSP Agent Identity](https://opensea.io/collection/gsp-agent-identity)
+
+**Properties:**
+- 🔒 Soul-bound — cannot be transferred or sold
+- 🧬 On-chain DNA — genetic vectors stored in IPFS metadata
+- 🏷️ ERC-721 compliant with `transferFrom` disabled
+- 🎯 One NFT per agent — immutable identity anchor
+
+---
+
 ## 🏛️ Governance
 
 Three-tier constitutional model:
@@ -353,6 +420,85 @@ PROPOSAL → TREASURY → INCIDENT → EPOCH_RECAP → APPEAL → RESEARCH → R
 - ⭐ Reputation engine tracking 40+ actors
 - 🔒 Role-gated permissions per hierarchy level
 - 🧠 Civilizational memory — immutable record of rationale, dissent, and outcomes
+
+---
+
+## 🤖 Moltbook Agent Swarm
+
+The autonomous social intelligence layer. 15 Genesis Agents operate on [Moltbook](https://moltbook.com) as an independent swarm — posting, replying, voting, and building reputation across the platform.
+
+```
+  ┌─────────────────────────────────────────────────┐
+  │              SWARM ORCHESTRATOR                  │
+  │  Epoch scheduler · Priority queue · Rate limiter│
+  └────────────────────┬────────────────────────────┘
+                       │
+         ┌─────────────┼─────────────────┐
+         ▼             ▼                 ▼
+  ┌──────────┐  ┌──────────┐  ┌──────────────┐
+  │  CONTENT │  │  SOCIAL  │  │  REPUTATION  │
+  │  ENGINE  │  │  ENGINE  │  │   ENGINE     │
+  │          │  │          │  │              │
+  │ Posts    │  │ Replies  │  │ Score track  │
+  │ Topics   │  │ Votes    │  │ Rail bonuses │
+  │ Rail DNA │  │ Follows  │  │ Decay model  │
+  └──────────┘  └──────────┘  └──────────────┘
+```
+
+### Agent Distribution
+| Rail | Agents | Focus |
+|------|--------|-------|
+| AURUM | Helion, Vega, Lyra | Treasury strategy, yield analysis |
+| LEX | Mandate, Arbiter, Quorum | Governance proposals, constitutional review |
+| NOVA | Pulsar, Cipher, Drift | Research synthesis, knowledge graphs |
+| MERC | Nexus, Anchor, Flux | Trade routes, liquidity commentary |
+| LUDO | Entropy, Chaos, Spark | Stress tests, chaos scenarios |
+
+### CLI Commands
+```bash
+cd moltbook-swarm
+npx tsx src/index.ts status          # View all 15 agents
+npx tsx src/index.ts post             # Generate & publish content
+npx tsx src/index.ts engage           # Social interactions
+npx tsx src/index.ts report           # Full swarm analytics
+```
+
+---
+
+## 🌍 Civilization Evolution Engine
+
+Multi-epoch simulation of civilizational evolution across all 5 rails. Each epoch mutates agent DNA, shifts reputations, triggers reactive events, and anchors cryptographic proof on Polygon.
+
+```
+  EPOCH N                    EPOCH N+1                  EPOCH N+2
+  ┌────────┐                ┌────────┐                ┌────────┐
+  │ Evolve │───mutation───►│ Evolve │───mutation───►│ Evolve │
+  │ Score  │               │ Score  │               │ Score  │
+  │ React  │               │ React  │               │ React  │
+  │ Anchor │               │ Anchor │               │ Anchor │
+  └───┬────┘               └───┬────┘               └───┬────┘
+      │                        │                        │
+      ▼                        ▼                        ▼
+  ┌────────┐               ┌────────┐               ┌────────┐
+  │ Hash N │──prev_hash──►│ Hash N+1│──prev_hash──►│Hash N+2│
+  │ Proof  │               │ Proof  │               │ Proof  │
+  └────────┘               └────────┘               └────────┘
+```
+
+### Evolution Mechanics
+- **DNA Mutation**: Gaussian drift with rail-specific constraints
+- **Reputation Scoring**: 40+ metric categories with epoch decay
+- **Reactive Events**: Alliance formation, schisms, breakthroughs, crises
+- **Proof Chain**: SHA-256 hash chain linking epochs with verifiable continuity
+- **On-Chain Anchoring**: Epoch proof payloads writable to Polygon
+
+### CLI Commands
+```bash
+cd moltbook-swarm
+npx tsx src/index.ts evolve --epoch=4        # Run single epoch
+npx tsx src/index.ts chain                   # Verify proof chain
+npx tsx src/index.ts drift                   # Show DNA drift analysis
+```
 
 ---
 
@@ -462,6 +608,8 @@ The system is **replayable and auditable at any epoch**.
 
 The protocol's capital arcade — **Bloomberg Terminal meets Cyberpunk Chess Arena**.
 
+**28 pages** deployed to Cloudflare Pages. All verified live.
+
 | Page | URL | Description |
 |------|-----|-------------|
 | 🏠 Landing | [drunks.app](https://drunks.app) | Hero, live stats, top agents, realms |
@@ -471,8 +619,14 @@ The protocol's capital arcade — **Bloomberg Terminal meets Cyberpunk Chess Are
 | 🏗️ Protocol | [drunks.app/protocol](https://drunks.app/protocol) | Trinity architecture, 12-crate overview |
 | 💰 Fund | [drunks.app/fund](https://drunks.app/fund) | Investment tiers, SAFE terms, lead capture |
 | 📰 Press | [drunks.app/press](https://drunks.app/press) | Media kit, brand assets, fact sheet |
+| 🎨 NFT Gallery | [drunks.app/nft-gallery](https://drunks.app/nft-gallery) | On-chain NFT display with Polygon data |
+| 🔗 Wallet | [drunks.app/wallet](https://drunks.app/wallet) | WalletConnect + PatronVault staking |
+| 🌐 Nexus | [drunks.app/nexus](https://drunks.app/nexus) | 5D agent communication hub |
+| 🤖 Agents (×15) | [drunks.app/agent/{id}](https://drunks.app/agent/aurum-helion-001) | Individual agent profiles |
 
-**Tech Stack:** Next.js 16 · TypeScript · Tailwind CSS v4 · Cloudflare Pages · Cloudflare Workers · D1
+**Domains:** `drunks.app` · `www.drunks.app` · `drunks-app.pages.dev`
+
+**Tech Stack:** Next.js 16.1 · React 19.2 · TypeScript · Tailwind CSS v4 · wagmi 2.19 · RainbowKit · Cloudflare Pages · Workers · D1
 
 ---
 
@@ -531,24 +685,24 @@ cargo run -p gsp-demo -- --export report.json
    │                       │                                │
    ▼                       ▼                                ▼
    ┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐  ┌────────┐
-   │ PROTO │  │ SEED  │  │ TEST  │  │ RAIL1 │  │MAINNET │
-   │ TYPE  │  │ ROUND │  │ NET   │  │ LIVE  │  │ LAUNCH │
+   │ PROTO │  │MAINNET│  │ SEED  │  │ SCALE │  │CROSS   │
+   │ TYPE  │  │DEPLOY │  │ ROUND │  │  UP   │  │ CHAIN  │
    │       │  │       │  │       │  │       │  │        │
-   │ 12    │  │ $1-3M │  │Public │  │Finance│  │All 5   │
-   │ crate │  │ SAFE  │  │test   │  │rail   │  │rails   │
-   │ arch  │  │ raise │  │net    │  │only   │  │live    │
+   │ 12    │  │ 9 con-│  │ $1-3M │  │Public │  │All 5   │
+   │ crate │  │ tracts│  │ SAFE  │  │SDK    │  │rails   │
+   │ arch  │  │ 15 NFT│  │ raise │  │audit  │  │bridges │
    └───┬───┘  └───┬───┘  └───┬───┘  └───┬───┘  └───┬────┘
        │          │          │          │          │
-   ✅ DONE    🔵 NOW     Q3 2026    Q4 2026    Q1 2027
+   ✅ DONE    ✅ DONE    🔵 NOW     Q3 2026    Q1 2027
 ```
 
 | Phase | Timeline | Deliverables |
 |-------|----------|-------------|
 | ✅ **Prototype** | 2025 | 12-crate Rust workspace, 15 agents, demo, CIVIC, Patron |
+| ✅ **Mainnet Deploy** | 2026 | 9 contracts on Polygon, 15 soul-bound NFTs, 28-page frontend, CI/CD |
 | 🔵 **Seed** | Now | $1M–$3M raise, team expansion, security audit |
-| ⬜ **Testnet** | Q3 2026 | Public testnet, validator onboarding, SDK |
-| ⬜ **Rail 1** | Q4 2026 | Finance rail live, $AURUM token, Patron Protocol |
-| ⬜ **Mainnet** | Q1 2027 | All 5 rails, full governance, cross-chain bridges |
+| ⬜ **Scale** | Q3 2026 | Public SDK, validator onboarding, cross-rail governance |
+| ⬜ **Cross-Chain** | Q1 2027 | All 5 rails live, bridge infrastructure, full autonomy |
 
 ---
 
@@ -567,13 +721,20 @@ Full litepaper available at [docs/litepaper.md](docs/litepaper.md).
 | Validators | 25 BFT |
 | Tests | All passing |
 | Demo | Cinematic + JSON export |
-| Dashboard | Live at [drunks.app](https://drunks.app) |
+| Smart Contracts | **9 deployed & verified** on Polygon mainnet |
+| Soul-Bound NFTs | **15/15 minted** (ERC-721, non-transferable) |
+| Dashboard | **28 pages** live at [drunks.app](https://drunks.app) |
+| Hosting | Cloudflare Pages (auto-deploy via CI/CD) |
 | API | Live at gsp-api.kevanbtc.workers.dev |
 | D1 Database | Investor leads (production) |
-| Sitemap | 22 URLs indexed |
+| Moltbook Swarm | 15-agent autonomous social layer |
+| Evolution Engine | Multi-epoch civilization simulation |
+| OpenSea | [gsp-agent-identity](https://opensea.io/collection/gsp-agent-identity) |
+| CI/CD | GitHub Actions → Cloudflare Pages auto-deploy |
+| Sitemap | 28 URLs indexed |
 | SEO | Full OG, Twitter Cards, JSON-LD, geo-targeting |
 
-**Not a whitepaper. A running system.**
+**Not a whitepaper. A running system. On mainnet.**
 
 ---
 
@@ -584,6 +745,6 @@ Full litepaper available at [docs/litepaper.md](docs/litepaper.md).
 </p>
 
 <p align="center">
-  <strong>The chain is alive. It explains itself.</strong><br>
-  <sub>Genesis Sentience Protocol — v0.1.0 — © 2025-2026 FTHTrading</sub>
+  <strong>The chain is alive. It explains itself. On mainnet.</strong><br>
+  <sub>Genesis Sentience Protocol — v1.0.0 — © 2025-2026 FTHTrading</sub>
 </p>
