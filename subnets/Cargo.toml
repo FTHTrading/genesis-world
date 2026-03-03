@@ -1,0 +1,12 @@
+[package]
+name = "gsp-subnets"
+version.workspace = true
+edition.workspace = true
+description = "Elastic Subnets — on-demand validator groups with security leasing"
+
+[dependencies]
+gsp-kernel = { path = "../kernel" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }

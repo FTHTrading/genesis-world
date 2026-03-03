@@ -1,0 +1,15 @@
+[package]
+name = "gsp-validator"
+version.workspace = true
+edition.workspace = true
+description = "Validator system — AI co-pilots, staking, slashing"
+
+[dependencies]
+gsp-kernel = { path = "../kernel" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+rand = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }

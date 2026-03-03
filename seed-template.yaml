@@ -1,0 +1,58 @@
+meta:
+  name: Genesis Sentience Protocol
+  version: 0.1.0
+  chain_id: gsp-mainnet-1
+  genesis_time: null
+network:
+  block_time_ms: 2000
+  epoch_length: 1000
+  finality_threshold: 0.667
+  snowman_confidence: 20
+realms:
+- name: Aureum
+  rail_type: finance
+  runtime_type: evm
+  agents_per_realm: 5
+  initial_treasury: 1000000
+  description: Financial sovereignty rail
+- name: Lexicon
+  rail_type: governance
+  runtime_type: wasm
+  agents_per_realm: 5
+  initial_treasury: 500000
+  description: Governance and constitutional rail
+- name: Nova
+  rail_type: research
+  runtime_type: ai
+  agents_per_realm: 5
+  initial_treasury: 750000
+  description: Research and knowledge rail
+- name: Mercator
+  rail_type: trade
+  runtime_type: wasm
+  agents_per_realm: 5
+  initial_treasury: 1000000
+  description: Trade and commerce rail
+- name: Ludos
+  rail_type: chaos
+  runtime_type: wasm
+  agents_per_realm: 3
+  initial_treasury: 250000
+  description: Entropy and chaos rail
+tokenomics:
+  core_supply: 1000000000
+  origin_supply: 100000000
+  base_emission_per_epoch: 1000000
+  target_inflation: 0.05
+validators:
+  count: 100
+  min_stake: 100000
+  topology_simulations: 1000
+agents:
+  initial_agents_per_realm: 5
+  lineages:
+  - AURUM
+  - LEXICON
+  - NOVA
+  - MERCATOR
+  - LUDOS

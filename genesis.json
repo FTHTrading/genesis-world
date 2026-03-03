@@ -1,0 +1,245 @@
+{
+  "genesis_hash": "8492030af214e12df795d8af490f92153a202332f325c4d650f625d18898f2c6",
+  "chain_id": "gsp-mainnet-1",
+  "genesis_time": "2026-03-03T11:01:00.601100700+00:00",
+  "network_config": {
+    "block_time_ms": 2000,
+    "epoch_length": 1000,
+    "finality_threshold": 0.667,
+    "snowman_confidence": 20
+  },
+  "topology": {
+    "validator_count": 100,
+    "simulations_run": 1000,
+    "resilience_score": 0.34,
+    "decentralization_index": 1.0
+  },
+  "realm_allocations": [
+    {
+      "realm_name": "aureum",
+      "rail_type": "Finance",
+      "validator_count": 100,
+      "agent_count": 5
+    },
+    {
+      "realm_name": "lexicon",
+      "rail_type": "Governance",
+      "validator_count": 100,
+      "agent_count": 5
+    },
+    {
+      "realm_name": "nova",
+      "rail_type": "Research",
+      "validator_count": 100,
+      "agent_count": 5
+    },
+    {
+      "realm_name": "mercator",
+      "rail_type": "Trade",
+      "validator_count": 100,
+      "agent_count": 5
+    },
+    {
+      "realm_name": "ludos",
+      "rail_type": "Chaos",
+      "validator_count": 100,
+      "agent_count": 3
+    }
+  ],
+  "token_allocation": {
+    "core": {
+      "total_supply": 1000000000,
+      "validator_pool": 400000000,
+      "ai_compute_pool": 150000000,
+      "treasury_reserve": 200000000,
+      "ecosystem_grants": 150000000,
+      "founding_team": 100000000
+    },
+    "origin": {
+      "total_supply": 100000000,
+      "genesis_backers": 30000000,
+      "founding_houses": 20000000,
+      "realm_seed_pool": 30000000,
+      "strategic_reserve": 20000000
+    },
+    "rail_allocations": {
+      "Chaos": 30000000,
+      "Trade": 50000000,
+      "Governance": 30000000,
+      "Research": 40000000,
+      "Finance": 50000000
+    }
+  },
+  "agent_births": [
+    {
+      "agent_id": "db7fb7ef710f3cafef36f7491d6688bb",
+      "name": "AURUM-Helion-001",
+      "realm": "aureum",
+      "lineage": "AURUM",
+      "dna_hash": "816adad3e36b01dbf9b537242a4be8242b1078b7e8609f26062347c5047a5a31"
+    },
+    {
+      "agent_id": "dd31be77c1c0cbcd50758ad7d85e2e5e",
+      "name": "AURUM-Kyros-002",
+      "realm": "aureum",
+      "lineage": "AURUM",
+      "dna_hash": "56b64e722070188e1b58ecb306870b025dd8f9cb68c7302064f30ab5933f5890"
+    },
+    {
+      "agent_id": "f41606649bde97d143402e422deba2b7",
+      "name": "AURUM-Virex-003",
+      "realm": "aureum",
+      "lineage": "AURUM",
+      "dna_hash": "6cc3e76e819db978dbb617f327a2e181d20fa9f66518ee2c677076ab41ee8c45"
+    },
+    {
+      "agent_id": "02742413654fc57b212ce69a4f394906",
+      "name": "AURUM-Auris-004",
+      "realm": "aureum",
+      "lineage": "AURUM",
+      "dna_hash": "64cc036ff832f992fbcab84f1577a5382474a3e9fe989d723a4350625fd418f2"
+    },
+    {
+      "agent_id": "a94a2cc7e9daf09cb1807eac42f08642",
+      "name": "AURUM-Plex-005",
+      "realm": "aureum",
+      "lineage": "AURUM",
+      "dna_hash": "a3f316df22f8a917bc6bad6f4e6511eeebe7bcfae3a410982a7ea3f8955f7822"
+    },
+    {
+      "agent_id": "db288e0c4e6159785aeffa081954dfd1",
+      "name": "LEXICON-Ordin-001",
+      "realm": "lexicon",
+      "lineage": "LEXICON",
+      "dna_hash": "d49832210ccb84ffa6ed2dfb32d423a9a35412643c96e595e03ab44b22626219"
+    },
+    {
+      "agent_id": "46c4bbe779e4586a11440112df7b1a31",
+      "name": "LEXICON-Civis-002",
+      "realm": "lexicon",
+      "lineage": "LEXICON",
+      "dna_hash": "d94c5cc0c6bcbde6165414c2a7eb9ef76e73c80c72a18eb64ccf2815eda137d9"
+    },
+    {
+      "agent_id": "5d8bc748a76b4f3de885a05b327e80e5",
+      "name": "LEXICON-Vetra-003",
+      "realm": "lexicon",
+      "lineage": "LEXICON",
+      "dna_hash": "de44650d650e94cd61823f9a89c2d1d9680a9fa46b3ece8673702617982c74bc"
+    },
+    {
+      "agent_id": "41822a9fa97ae8a634311cd700946bfd",
+      "name": "LEXICON-Jurix-004",
+      "realm": "lexicon",
+      "lineage": "LEXICON",
+      "dna_hash": "8ed1a0dd8d9260ddcbf470ace34868580d38ffb5c9a39cafadf73e7c12ccf22d"
+    },
+    {
+      "agent_id": "612f33aeb736a678bad3c6bf57200994",
+      "name": "LEXICON-Legis-005",
+      "realm": "lexicon",
+      "lineage": "LEXICON",
+      "dna_hash": "4a787d8cda83a601bf17ca980af62b2e2b64d0916147702af141a10df7ade29c"
+    },
+    {
+      "agent_id": "a33ec5a96cff482ee5ad4264c0c7c1d3",
+      "name": "NOVA-Quantis-001",
+      "realm": "nova",
+      "lineage": "NOVA",
+      "dna_hash": "8771125f2db0c71e913f43683f39cb61806cd8ca9fc5d3479e1dbed75c3b6ec0"
+    },
+    {
+      "agent_id": "02edc893c7b573bf3ad42cd7ff43b21a",
+      "name": "NOVA-Axiom-002",
+      "realm": "nova",
+      "lineage": "NOVA",
+      "dna_hash": "b6b06b50f5d960136dfb2148ed16085e1e9a3fd6c064211c7d3103986f99a125"
+    },
+    {
+      "agent_id": "094d253a6c3c8e7a4b0d98a0e33fd4d7",
+      "name": "NOVA-Syrix-003",
+      "realm": "nova",
+      "lineage": "NOVA",
+      "dna_hash": "d99559c4cda2fda73ffdf3c6a84265b7237148281904b9793b7ef9bec00870c8"
+    },
+    {
+      "agent_id": "6c759de99f855ef3e921540183d100dd",
+      "name": "NOVA-Theori-004",
+      "realm": "nova",
+      "lineage": "NOVA",
+      "dna_hash": "d3a8fbf77460658d447a4e63bf2950e8947fad325b0de9490d463a9892b28068"
+    },
+    {
+      "agent_id": "51911374df41d6189976cacc1e6bbef5",
+      "name": "NOVA-Empiris-005",
+      "realm": "nova",
+      "lineage": "NOVA",
+      "dna_hash": "0a899c32f8dafbc071de1a53c8200a9e362345e82397031321d0638a4598e7af"
+    },
+    {
+      "agent_id": "965eaaab4245c7a2d295409014ee0e73",
+      "name": "MERCATOR-Flux-001",
+      "realm": "mercator",
+      "lineage": "MERCATOR",
+      "dna_hash": "49ed60e8404db26327d0a4ea223e783347781d5988fce60f4dfb0365e8e6bad6"
+    },
+    {
+      "agent_id": "eb91dfaea10e212b934c61598cc11e9f",
+      "name": "MERCATOR-Orbit-002",
+      "realm": "mercator",
+      "lineage": "MERCATOR",
+      "dna_hash": "646d78f20d8aac3f7b40c2e1b0116c685b2def77eeb9a8e81f9707477a9ffa92"
+    },
+    {
+      "agent_id": "b83e8317f2da7baed43779cd406d7a5a",
+      "name": "MERCATOR-Vector-003",
+      "realm": "mercator",
+      "lineage": "MERCATOR",
+      "dna_hash": "26a9d9e0058ccf967f705c68793c1ccd7ab38e8d56624850a60fcd1b0cd029a6"
+    },
+    {
+      "agent_id": "dd2c7ee7494ab4e4e048e72c8f460e2e",
+      "name": "MERCATOR-Nexis-004",
+      "realm": "mercator",
+      "lineage": "MERCATOR",
+      "dna_hash": "bee52bd95e8e70ef9a2c10ac37d148f3e9f0682c1da7d4a09c22ecf97e2d55cb"
+    },
+    {
+      "agent_id": "eddeb0830a904f63705c8174550279ce",
+      "name": "MERCATOR-Cypher-005",
+      "realm": "mercator",
+      "lineage": "MERCATOR",
+      "dna_hash": "b3b5c06755cd5113773c343e53505ac8748efbbb77e9728c16fd314d5ba86eeb"
+    },
+    {
+      "agent_id": "eb6468751c6491b8d8aa387cdde89f5d",
+      "name": "LUDOS-Arc-001",
+      "realm": "ludos",
+      "lineage": "LUDOS",
+      "dna_hash": "9d6716536dec0a93ba3e1be270b2a47829c67726a5ec8538c9f4ec50164261d7"
+    },
+    {
+      "agent_id": "dff187a3d791fe40f557ebfbf407ce71",
+      "name": "LUDOS-Morph-002",
+      "realm": "ludos",
+      "lineage": "LUDOS",
+      "dna_hash": "2d3b1b2b026efa0b9ba9747c9b260c9bf1d5697d69679713969dd6643c5e4510"
+    },
+    {
+      "agent_id": "4993af484ab5f1509175d3d14763d684",
+      "name": "LUDOS-Vanta-003",
+      "realm": "ludos",
+      "lineage": "LUDOS",
+      "dna_hash": "974f70093a71e28e3b42c892083884cdce993e013da55fab0227952e6f0cb63a"
+    }
+  ],
+  "constitutional_invariants": [
+    "MaxInflation: 15% annual cap",
+    "MinStakingReward: 3% APY floor",
+    "AgentWeightCap: No single agent > 5% of governance weight",
+    "TreasuryReserve: 20% minimum reserve ratio",
+    "FinalityGuarantee: 2/3 + 1 validator threshold",
+    "HumanVetoRight: Constitutional amendments require human approval"
+  ],
+  "genesis_seed_hash": "2d2881eca90f0f91670d64fdc6b85e51d823ae786dc9e6f8cf0dc138ebfb8c2b"
+}

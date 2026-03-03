@@ -1,0 +1,33 @@
+[package]
+name = "gsp-demo"
+version = "0.1.0"
+edition = "2021"
+description = "Genesis Sentience Protocol — Civilization Simulator Demo"
+
+[[bin]]
+name = "gsp-demo"
+path = "src/main.rs"
+
+[dependencies]
+gsp-kernel = { path = "../kernel" }
+gsp-agents = { path = "../agents" }
+gsp-ai-mesh = { path = "../ai-mesh" }
+gsp-tokenomics = { path = "../tokenomics" }
+gsp-validator = { path = "../validator" }
+gsp-subnets = { path = "../subnets" }
+gsp-realms = { path = "../realms" }
+gsp-narrative = { path = "../narrative-engine" }
+gsp-civic = { path = "../civic" }
+gsp-patron = { path = "../patron" }
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+hex.workspace = true
+rand.workspace = true
+rand_chacha.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true

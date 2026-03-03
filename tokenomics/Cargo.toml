@@ -1,0 +1,15 @@
+[package]
+name = "gsp-tokenomics"
+version.workspace = true
+edition.workspace = true
+description = "Token economics engine — $CORE, $ORIGIN, rail tokens, emission, treasury"
+
+[dependencies]
+gsp-kernel = { path = "../kernel" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+rand = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }

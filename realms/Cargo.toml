@@ -1,0 +1,12 @@
+[package]
+name = "gsp-realms"
+version.workspace = true
+edition.workspace = true
+description = "Sovereign Realms — app-specific micro-chains with custom runtimes"
+
+[dependencies]
+gsp-kernel = { path = "../kernel" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,18 @@
+[package]
+name = "gsp-agents"
+version.workspace = true
+edition.workspace = true
+description = "Agent DNA system — identity, lineage, evolution, and reputation"
+
+[dependencies]
+gsp-kernel = { path = "../kernel" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+rand = { workspace = true }
+rand_chacha = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+thiserror = { workspace = true }
+blake3 = { workspace = true }
