@@ -20,3 +20,4 @@ Thumbs.db
 # Environment
 .env
 .env.local
+contracts-evm/scripts/derive-key.ts
