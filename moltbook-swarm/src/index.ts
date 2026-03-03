@@ -11,20 +11,26 @@ import { planEpochThreads, executeThread, describeThread } from "./dialogue.js";
 import { createClient, MoltbookMode } from "./client.js";
 import { Ledger } from "./ledger.js";
 import { pick, seededRng, hash, fmt } from "./utils.js";
+import { evolve, evolveRange, inspectChain, inspectEpoch } from "./civilization.js";
+import { formatDrift } from "./evolution.js";
+import { loadHistory } from "./epoch-anchor.js";
 
 // ═══════════════════════════════════════════════
 // COMMANDS
 // ═══════════════════════════════════════════════
 
 const COMMANDS: Record<string, string> = {
-  generate:   "Generate all posts for an epoch (default: 10)",
-  thread:     "Plan and generate conversation threads",
-  preview:    "Preview a single agent's content",
-  post:       "Post generated content (DRY_RUN by default)",
-  status:     "Show ledger statistics",
-  agents:     "List all 15 agents with DNA profiles",
-  topics:     "List all available topics",
-  help:       "Show this help message",
+  generate:    "Generate all posts for an epoch (default: 10)",
+  thread:      "Plan and generate conversation threads",
+  preview:     "Preview a single agent's content",
+  post:        "Post generated content (DRY_RUN by default)",
+  status:      "Show ledger statistics",
+  agents:      "List all 15 agents with DNA profiles",
+  topics:      "List all available topics",
+  evolve:      "Run full civilization evolution cycle",
+  chain:       "Inspect civilization proof chain",
+  drift:       "Show DNA drift from genesis",
+  help:        "Show this help message",
 };
 
 async function main(): Promise<void> {
@@ -61,6 +67,15 @@ async function main(): Promise<void> {
       break;
     case "topics":
       cmdTopics();
+      break;
+    case "evolve":
+      await cmdEvolve(flags);
+      break;
+    case "chain":
+      await cmdChain(flags);
+      break;
+    case "drift":
+      await cmdDrift();
       break;
     case "help":
     default:
@@ -280,6 +295,65 @@ function cmdTopics(): void {
 }
 
 // ═══════════════════════════════════════════════
+// EVOLVE — Full civilization evolution cycle
+// ═══════════════════════════════════════════════
+
+async function cmdEvolve(flags: Record<string, string>): Promise<void> {
+  const epoch = parseInt(flags.epoch || "10");
+  const verbose = flags.verbose === "true" || flags.v === "true";
+  const rangeEnd = flags.to ? parseInt(flags.to) : undefined;
+
+  if (rangeEnd && rangeEnd > epoch) {
+    console.log(`  Evolving epochs ${epoch} → ${rangeEnd}...\n`);
+    const results = await evolveRange(epoch, rangeEnd, verbose);
+    console.log(`\n  Evolved ${results.length} epochs.`);
+    for (const r of results) {
+      console.log(`    E${r.state.epoch}: ${r.state.discourse.totalPosts} posts, ${r.state.mutations.length} mutations, hash: ${r.state.civilizationHash.slice(0, 16)}...`);
+    }
+  } else {
+    const result = await evolve({ epoch, verbose, saveOutputs: true });
+    // summary already printed by evolve() via log()
+  }
+}
+
+// ═══════════════════════════════════════════════
+// CHAIN — Inspect civilization proof chain
+// ═══════════════════════════════════════════════
+
+async function cmdChain(flags: Record<string, string>): Promise<void> {
+  const epochNum = flags.epoch ? parseInt(flags.epoch) : undefined;
+
+  if (epochNum !== undefined) {
+    const state = await inspectEpoch(epochNum);
+    if (state) {
+      console.log(state);
+    } else {
+      console.log(`  No state found for epoch ${epochNum}`);
+    }
+  } else {
+    const chainInfo = await inspectChain();
+    console.log(chainInfo);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// DRIFT — DNA drift from genesis
+// ═══════════════════════════════════════════════
+
+async function cmdDrift(): Promise<void> {
+  const history = await loadHistory();
+
+  if (history.epochs.length === 0) {
+    console.log("  No evolution history yet. Run 'evolve' first.");
+    return;
+  }
+
+  const latest = history.epochs[history.epochs.length - 1]!;
+  console.log(`  DNA Drift Report — Epoch ${latest.epoch}\n`);
+  console.log(formatDrift(latest.dnaSnapshots));
+}
+
+// ═══════════════════════════════════════════════
 // HELP
 // ═══════════════════════════════════════════════
 
@@ -289,10 +363,12 @@ function cmdHelp(): void {
     console.log(`    ${cmd.padEnd(12)} ${desc}`);
   }
   console.log("\n  Flags:\n");
-  console.log("    --epoch=N      Target epoch (default: 10)");
-  console.log("    --agent=ID     Agent ID for preview");
-  console.log("    --mode=MODE    Posting mode: DRY_RUN | MANUAL | API");
-  console.log("    --execute=true Execute threads (generate posts)");
+  console.log("    --epoch=N       Target epoch (default: 10)");
+  console.log("    --to=N          End epoch for range evolution");
+  console.log("    --agent=ID      Agent ID for preview");
+  console.log("    --mode=MODE     Posting mode: DRY_RUN | MANUAL | API");
+  console.log("    --execute=true  Execute threads (generate posts)");
+  console.log("    --verbose=true  Show full evolution details");
   console.log("\n  Examples:\n");
   console.log("    npx tsx src/index.ts generate --epoch=10");
   console.log("    npx tsx src/index.ts preview --agent=ludo-carnival-013");
@@ -300,6 +376,13 @@ function cmdHelp(): void {
   console.log("    npx tsx src/index.ts post --epoch=10 --mode=MANUAL");
   console.log("    npx tsx src/index.ts agents");
   console.log("    npx tsx src/index.ts status");
+  console.log();
+  console.log("  Civilization Engine:\n");
+  console.log("    npx tsx src/index.ts evolve --epoch=10 --verbose=true");
+  console.log("    npx tsx src/index.ts evolve --epoch=1 --to=10");
+  console.log("    npx tsx src/index.ts chain");
+  console.log("    npx tsx src/index.ts chain --epoch=5");
+  console.log("    npx tsx src/index.ts drift");
   console.log();
 }
 

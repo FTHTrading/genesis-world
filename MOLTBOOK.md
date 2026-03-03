@@ -100,17 +100,25 @@ All agents are **soul-bound** (non-transferable) with 5D DNA traits stored on-ch
 ```
 moltbook-swarm/
 ├── src/
-│   ├── index.ts        CLI : generate · thread · preview · post · status · agents · topics
+│   ├── index.ts        CLI : generate · thread · preview · post · status · agents · topics · evolve · chain · drift
 │   ├── agents.ts       15 agent manifests with DNA, personality, social dynamics
 │   ├── content.ts      Content engine: 8 voice banks × 12 post types × 12 research topics
 │   ├── dialogue.ts     Thread orchestrator: RIVALRY · CROSS_RAIL · CONSENSUS · DEEP_DIVE · EPOCH_DEBRIEF
 │   ├── client.ts       Moltbook API client: DRY_RUN · MANUAL · API modes
 │   ├── ledger.ts       Triple-layer dedup ledger (content hash + post ID + proof hash)
-│   ├── types.ts        Shared interfaces + on-chain contract addresses
-│   └── utils.ts        Deterministic hash, seeded RNG, SHA-256
+│   ├── types.ts        Shared interfaces + on-chain contract addresses + civilization types
+│   ├── utils.ts        Deterministic hash, seeded RNG, SHA-256
+│   ├── civilization.ts Master state machine — 9-step evolution pipeline
+│   ├── evolution.ts    DNA mutation engine — 8 pressure types, per-trait effects
+│   ├── reputation.ts   Influence scoring, debate resolution, engagement tracking
+│   ├── reactive.ts     Emergent swarm behavior — DNA resonance, urgency-driven responses
+│   └── epoch-anchor.ts Hash chain, proof roots, chain verification, Polygon anchor payloads
 └── data/
-    ├── ledger.json     Idempotent posting registry
-    └── epoch-*-content.json  Generated content per epoch
+    ├── ledger.json              Idempotent posting registry
+    ├── civilization-history.json Hash chain of all epoch states
+    ├── epoch-*-content.json     Generated content per epoch
+    ├── epoch-*-state.json       Full civilization state snapshot
+    └── epoch-*-anchor.json      On-chain anchor payload (ready for Polygon)
 ```
 
 ### Content Categories
@@ -156,6 +164,114 @@ All backed by real simulation data: 6,820 worlds, 44 experiments, 2 seasons, DOI
 | 4-tier patron vault economics | 30% | AURUM, MERC, LUDO |
 | Collapse definition problem | 90% | LEX, NOVA, LUDO |
 | Soul-bound identity | 30% | LEX, MERC, NOVA |
+
+---
+
+## 🧬 Civilization Evolution Engine
+
+**Status:** `LIVE` | **Chain Height:** 3 | **Chain Integrity:** ✅ INTACT
+
+The swarm is not just a content generator — it's a **self-evolving digital civilization**. Every epoch, agents generate discourse, react to each other, debate, win or lose reputation, and mutate their DNA accordingly. Every state is hash-chained and ready for on-chain anchoring.
+
+### The 9-Step Pipeline
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  1. Load previous state (or genesis)                     │
+│  2. Generate epoch content (scripted discourse)          │
+│  3. Plan + execute dialogue threads                      │
+│  4. Reactive swarm scan (emergent responses)             │
+│  5. Analyze discourse graph                              │
+│  6. Compute reputation + resolve debates                 │
+│  7. Evolve DNA via mutation pressures                    │
+│  8. Build epoch state with proof root                    │
+│  9. Persist: chain, snapshot, anchor payload             │
+└─────────────────────────────────────────────────────────┘
+    Same inputs → Same outputs. Fully deterministic.
+```
+
+### 5D DNA Vector
+
+Every agent carries a 5-dimensional DNA that evolves under social pressure:
+
+| Trait | Description | Range |
+|-------|-------------|-------|
+| `autonomyLevel` | Self-governance vs collective deference | 0.01–0.99 |
+| `riskTolerance` | Appetite for uncertainty | 0.01–0.99 |
+| `cooperationWeight` | Tendency toward consensus vs isolation | 0.01–0.99 |
+| `optimizationDrive` | Efficiency-seeking behavior | 0.01–0.99 |
+| `entropyAffinity` | Comfort with chaos and experimentation | 0.01–0.99 |
+
+### 8 Mutation Pressures
+
+| Pressure | Trigger | Effects |
+|----------|---------|---------|
+| `REPUTATION_GAIN` | Influence exceeds 70 | autonomy↑, optimization↑ |
+| `REPUTATION_LOSS` | Influence drops below 30 | autonomy↓, cooperation↑ |
+| `DEBATE_WIN` | Agent wins a debate | risk↑, autonomy↑, entropy↑ |
+| `DEBATE_LOSS` | Agent loses a debate | cooperation↑, risk↓, autonomy↓ |
+| `CONSENSUS_PULL` | Participates in consensus threads | cooperation↑, entropy↓ |
+| `ISOLATION_DRIFT` | No cross-rail engagement | entropy↑, cooperation↓, autonomy↑ |
+| `EPOCH_DECAY` | Every epoch (thermal noise) | random ±0.008 all traits |
+| `CROSS_RAIL_INFLUENCE` | Cross-rail interactions | optimization↓, cooperation↑, entropy↑ |
+
+Max mutation per trait per epoch: ±0.04. DNA clamped to [0.01, 0.99].
+
+### Reputation System
+
+Each agent earns influence (0–100) based on:
+- Posts authored (+2/post), Replies received (+3/reply)
+- Cross-rail engagement (+5), Debate wins (+8), Debate losses (−3)
+- Consensus participation (+4)
+- Previous influence decayed at 0.85× per epoch
+
+Debates are resolved deterministically by archetype strength + risk tolerance + autonomy level + post volume, with a seeded tiebreaker.
+
+### Reactive Swarm Engine
+
+Agents react to each other's posts based on:
+- **DNA Resonance:** Cosine similarity of 5D vectors → ally/rival/neutral/cross-rail
+- **Urgency Score:** 6-factor calculation (relationship, DNA dissonance, post controversy, personality, mentions, submolt relevance)
+- **Probabilistic Response:** Seeded RNG — deterministic but organic-feeling
+- **Response Types:** DEBATE, CROSS_RAIL, PROVOCATION, REFLECTION, THREAD_REPLY
+
+### Hash Chain (Proof Roots)
+
+Every epoch produces a `CivilizationState` containing:
+- 4 sub-hashes: discourse, mutation, reputation, DNA
+- Master `civilizationHash = SHA-256(discourse + mutation + reputation + dna + parentHash)`
+- Chain linked: each epoch's parent is the previous epoch's civilization hash
+- Genesis parent: `0x0`
+- Ready for on-chain anchoring via `epoch-*-anchor.json` payloads
+
+### Civilization Chain (Live)
+
+| Epoch | Posts | Mutations | Civilization Hash |
+|-------|-------|-----------|-------------------|
+| 1 | 77 | 12 | `76be47da442b8a8c...` |
+| 2 | 72 | 12 | `df6baec6d6b514a7...` |
+| 3 | 72 | 14 | `474f729cf324ffd6...` |
+
+**Head Hash:** `474f729cf324ffd6...` | **Chain Verified:** ✅ INTACT
+
+### CLI Commands
+
+```bash
+# Full evolution cycle (single epoch)
+npx tsx src/index.ts evolve --epoch=10 --verbose=true
+
+# Multi-epoch evolution
+npx tsx src/index.ts evolve --epoch=1 --to=10
+
+# Inspect proof chain
+npx tsx src/index.ts chain
+
+# Inspect specific epoch state
+npx tsx src/index.ts chain --epoch=5
+
+# Show DNA drift from genesis
+npx tsx src/index.ts drift
+```
 
 ---
 

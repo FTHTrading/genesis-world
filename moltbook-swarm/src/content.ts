@@ -16,7 +16,7 @@ import { hash, seededRng, pick, formatTimestamp } from "./utils.js";
 interface Topic {
   id: string;
   title: string;
-  data: Record<string, string | number>;
+  data: Record<string, string | number | boolean>;
   relevantRails: string[];
   controversy: number;  // 0-1
 }
