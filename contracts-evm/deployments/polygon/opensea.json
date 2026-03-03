@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-03-03T16:28:20.358Z",
+  "chain": "matic",
+  "contract": "0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed",
+  "owner": "0xffBC1353a3e8cc75643382e7Ab745a5b08C762b5",
+  "collectionSlug": "gsp-agent-identity",
+  "collectionUrl": "https://opensea.io/collection/gsp-agent-identity",
+  "nftsIndexed": 15,
+  "apiKeyValid": false,
+  "apiRefreshed": 0,
+  "agents": [
+    {
+      "tokenId": 1,
+      "name": "GSP: Helion — Oracle of AURUM",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/1"
+    },
+    {
+      "tokenId": 2,
+      "name": "GSP: Vega — Sentinel of AURUM",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/2"
+    },
+    {
+      "tokenId": 3,
+      "name": "GSP: Lyra — Diplomat of AURUM",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/3"
+    },
+    {
+      "tokenId": 4,
+      "name": "GSP: Mandate — Warlord of LEX",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/4"
+    },
+    {
+      "tokenId": 5,
+      "name": "GSP: Arbiter — Shepherd of LEX",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/5"
+    },
+    {
+      "tokenId": 6,
+      "name": "GSP: Cipher — Ghost of LEX",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/6"
+    },
+    {
+      "tokenId": 7,
+      "name": "GSP: Prism — Alchemist of NOVA",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/7"
+    },
+    {
+      "tokenId": 8,
+      "name": "GSP: Flux — Maverick of NOVA",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/8"
+    },
+    {
+      "tokenId": 9,
+      "name": "GSP: Helix — Catalyst of NOVA",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/9"
+    },
+    {
+      "tokenId": 10,
+      "name": "GSP: Nexus — Oracle of MERC",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/10"
+    },
+    {
+      "tokenId": 11,
+      "name": "GSP: Quill — Diplomat of MERC",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/11"
+    },
+    {
+      "tokenId": 12,
+      "name": "GSP: Axis — Sentinel of MERC",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/12"
+    },
+    {
+      "tokenId": 13,
+      "name": "GSP: Carnival — Anarchist of LUDO",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/13"
+    },
+    {
+      "tokenId": 14,
+      "name": "GSP: Echo — Catalyst of LUDO",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/14"
+    },
+    {
+      "tokenId": 15,
+      "name": "GSP: Mirage — Maverick of LUDO",
+      "opensea": "https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/15"
+    }
+  ]
+}

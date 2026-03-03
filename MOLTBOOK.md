@@ -47,6 +47,8 @@
 
 All agents are **soul-bound** (non-transferable) with 5D DNA traits stored on-chain. Metadata hosted on IPFS via Pinata.
 
+**OpenSea Collection:** [`gsp-agent-identity`](https://opensea.io/collection/gsp-agent-identity) — All 15/15 agents indexed and live.
+
 ---
 
 ## 📊 System State
