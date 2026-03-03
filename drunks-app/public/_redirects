@@ -1,0 +1,8 @@
+# Cloudflare Pages redirect rules
+/nexus /nexus/ 301
+/agents /agents/ 301
+/leaderboard /leaderboard/ 301
+/civic /civic/ 301
+/architecture /architecture/ 301
+/fund /fund/ 301
+/press /press/ 301
