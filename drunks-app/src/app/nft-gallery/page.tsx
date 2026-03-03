@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useAccount, useReadContracts } from "wagmi";
+import { type Address } from "viem";
+import { CONTRACTS, AGENT_IDENTITY_NFT_ABI } from "@/lib/contracts";
+
+const NFT_ADDRESS = CONTRACTS.AGENT_IDENTITY_NFT as Address;
 
 // ── Agent data matching contracts ───────────────────────────────────────────
 const RAIL_COLORS: Record<string, string> = {
@@ -156,7 +161,7 @@ function DNABar({ label, value, color }: { label: string; value: number; color: 
 }
 
 // ── Agent Card ────────────────────────────────────────────────────────────────
-function AgentCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
+function AgentCard({ agent, onClick, isOwned, ownerAddress }: { agent: Agent; onClick: () => void; isOwned?: boolean; ownerAddress?: string }) {
   const color = RAIL_COLORS[agent.rail];
   const glow = RAIL_GLOW[agent.rail];
   const border = RARITY_BORDER[agent.rarity];
@@ -166,11 +171,26 @@ function AgentCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
       className="relative rounded-xl cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1"
       style={{
         background: "linear-gradient(145deg, rgba(10,10,20,0.95) 0%, rgba(20,15,30,0.98) 100%)",
-        border: `1.5px solid ${border}`,
-        boxShadow: `0 0 20px ${glow}, inset 0 0 30px rgba(255,255,255,0.02)`,
+        border: isOwned ? `2px solid var(--accent-green)` : `1.5px solid ${border}`,
+        boxShadow: isOwned
+          ? `0 0 25px rgba(0,230,118,0.3), inset 0 0 30px rgba(255,255,255,0.02)`
+          : `0 0 20px ${glow}, inset 0 0 30px rgba(255,255,255,0.02)`,
       }}
       onClick={onClick}
     >
+      {/* Ownership badge */}
+      {isOwned && (
+        <div className="absolute top-2 right-2 z-10 px-2 py-0.5 rounded text-[0.55rem] font-mono font-bold tracking-widest bg-[rgba(0,230,118,0.15)] text-[var(--accent-green)] border border-[rgba(0,230,118,0.3)]">
+          YOURS
+        </div>
+      )}
+
+      {/* Owner address badge */}
+      {ownerAddress && !isOwned && (
+        <div className="absolute top-2 right-2 z-10 px-2 py-0.5 rounded text-[0.5rem] font-mono tracking-wider bg-[rgba(255,255,255,0.04)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
+          {ownerAddress.slice(0, 6)}...{ownerAddress.slice(-4)}
+        </div>
+      )}
       {/* Rarity banner */}
       <div
         className="absolute top-0 left-0 right-0 h-0.5 rounded-t-xl"
@@ -365,6 +385,29 @@ export default function NFTGalleryPage() {
   const [filterRail, setFilterRail] = useState<FilterRail>("ALL");
   const [filterRarity, setFilterRarity] = useState<FilterRarity>("ALL");
   const [selected, setSelected] = useState<Agent | null>(null);
+  const { address, isConnected } = useAccount();
+
+  // Batch read ownerOf for all 15 tokens
+  const { data: ownerResults } = useReadContracts({
+    contracts: AGENTS.map((a) => ({
+      address: NFT_ADDRESS,
+      abi: AGENT_IDENTITY_NFT_ABI,
+      functionName: "ownerOf" as const,
+      args: [BigInt(a.tokenId)],
+    })),
+  });
+
+  // Map tokenId -> owner address
+  const ownerMap = new Map<number, string>();
+  if (ownerResults) {
+    ownerResults.forEach((result, i) => {
+      if (result.status === "success") {
+        ownerMap.set(AGENTS[i].tokenId, (result.result as string).toLowerCase());
+      }
+    });
+  }
+
+  const userAddr = address?.toLowerCase() ?? "";
 
   const filtered = AGENTS.filter((a) => {
     const railOk = filterRail === "ALL" || a.rail === filterRail;
@@ -485,9 +528,19 @@ export default function NFTGalleryPage() {
       {/* Grid */}
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {filtered.map((agent) => (
-            <AgentCard key={agent.id} agent={agent} onClick={() => setSelected(agent)} />
-          ))}
+          {filtered.map((agent) => {
+            const owner = ownerMap.get(agent.tokenId);
+            const isOwned = isConnected && !!owner && owner === userAddr;
+            return (
+              <AgentCard
+                key={agent.id}
+                agent={agent}
+                onClick={() => setSelected(agent)}
+                isOwned={isOwned}
+                ownerAddress={owner}
+              />
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (

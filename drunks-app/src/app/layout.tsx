@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import Web3Provider from "@/components/Web3Provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -100,11 +101,13 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrains.variable} antialiased min-h-screen`}
         style={{ background: "#0B0F1A" }}
       >
-        <NavBar />
-        <main className="pt-14">
-          {children}
-        </main>
-        <Footer />
+        <Web3Provider>
+          <NavBar />
+          <main className="pt-14">
+            {children}
+          </main>
+          <Footer />
+        </Web3Provider>
       </body>
     </html>
   );

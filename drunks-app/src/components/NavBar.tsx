@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const NAV_ITEMS = [
   { href: "/", label: "HOME" },
@@ -11,6 +12,7 @@ const NAV_ITEMS = [
   { href: "/leaderboard", label: "LEADERBOARD" },
   { href: "/civic", label: "CIVIC" },
   { href: "/protocol", label: "PROTOCOL" },
+  { href: "/vault", label: "VAULT", vault: true },
   { href: "/fund", label: "FUND", cta: true },
 ];
 
@@ -65,6 +67,21 @@ export default function NavBar() {
                 </Link>
               );
             }
+            if ((item as any).vault) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-3 py-1.5 text-[0.7rem] font-mono font-bold tracking-widest rounded transition-all ${
+                    active
+                      ? "text-[var(--accent-gold)] bg-[rgba(255,215,0,0.1)] border border-[rgba(255,215,0,0.3)]"
+                      : "text-[var(--accent-gold)] hover:bg-[rgba(255,215,0,0.06)] border border-[rgba(255,215,0,0.15)]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
             return (
               <Link
                 key={item.href}
@@ -81,12 +98,74 @@ export default function NavBar() {
           })}
         </div>
 
-        {/* Live indicator */}
-        <div className="hidden md:flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-pulse-glow" />
-          <span className="text-[0.65rem] font-mono text-[var(--text-muted)] tracking-wider">
-            LIVE
-          </span>
+        {/* Wallet Connect */}
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-pulse-glow" />
+            <span className="text-[0.65rem] font-mono text-[var(--text-muted)] tracking-wider">
+              POLYGON
+            </span>
+          </div>
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              mounted,
+            }) => {
+              const ready = mounted;
+              const connected = ready && account && chain;
+
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button
+                          onClick={openConnectModal}
+                          className="px-4 py-1.5 text-[0.7rem] font-mono font-bold tracking-widest rounded border border-[rgba(0,191,255,0.3)] text-[var(--accent-blue)] bg-[rgba(0,191,255,0.08)] hover:bg-[rgba(0,191,255,0.15)] hover:border-[rgba(0,191,255,0.5)] transition-all cursor-pointer"
+                        >
+                          CONNECT
+                        </button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <button
+                          onClick={openChainModal}
+                          className="px-4 py-1.5 text-[0.7rem] font-mono font-bold tracking-widest rounded border border-[rgba(231,76,60,0.3)] text-[var(--accent-crimson)] bg-[rgba(231,76,60,0.08)] hover:bg-[rgba(231,76,60,0.15)] transition-all cursor-pointer"
+                        >
+                          WRONG NETWORK
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <button
+                        onClick={openAccountModal}
+                        className="px-4 py-1.5 text-[0.7rem] font-mono font-bold tracking-widest rounded border border-[rgba(0,230,118,0.3)] text-[var(--accent-green)] bg-[rgba(0,230,118,0.08)] hover:bg-[rgba(0,230,118,0.15)] transition-all cursor-pointer flex items-center gap-2"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-green)]" />
+                        {account.displayName}
+                      </button>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
         </div>
       </div>
     </nav>
