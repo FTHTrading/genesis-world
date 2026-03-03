@@ -214,7 +214,7 @@ function AgentCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
         {/* Footer */}
         <div className="flex gap-2 pt-3 border-t border-white/10">
           <a
-            href={`https://opensea.io/assets/matic/0x0000000000000000000000000000000000000000/${agent.tokenId}`}
+            href={`https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/${agent.tokenId}`}
             target="_blank"
             rel="noreferrer"
             className="flex-1 text-center text-xs py-1.5 rounded font-mono transition-all hover:opacity-80"
@@ -333,7 +333,7 @@ function AgentModal({ agent, onClose }: { agent: Agent; onClose: () => void }) {
           {/* Actions */}
           <div className="flex gap-3">
             <a
-              href={`https://opensea.io/assets/matic/0x0000000000000000000000000000000000000000/${agent.tokenId}`}
+              href={`https://opensea.io/assets/matic/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/${agent.tokenId}`}
               target="_blank"
               rel="noreferrer"
               className="flex-1 text-center py-2 rounded-lg text-sm font-mono transition-all hover:opacity-80"
@@ -342,7 +342,7 @@ function AgentModal({ agent, onClose }: { agent: Agent; onClose: () => void }) {
               View on OpenSea ↗
             </a>
             <a
-              href={`https://polygonscan.com/nft/0x0000000000000000000000000000000000000000/${agent.tokenId}`}
+              href={`https://polygonscan.com/nft/0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed/${agent.tokenId}`}
               target="_blank"
               rel="noreferrer"
               className="flex-1 text-center py-2 rounded-lg text-sm font-mono transition-all hover:opacity-80"
@@ -500,12 +500,11 @@ export default function NFTGalleryPage() {
       {/* Deploy status banner */}
       <div
         className="mx-6 mb-6 rounded-xl p-4 flex items-center gap-3 text-sm"
-        style={{ background: "rgba(255,215,0,0.05)", border: "1px solid rgba(255,215,0,0.15)" }}
+        style={{ background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.15)" }}
       >
-        <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-        <span className="text-yellow-400/70 font-mono text-xs">
-          CONTRACT NOT YET DEPLOYED — OpenSea links will activate after mainnet deployment. 
-          Run: <code className="bg-black/30 px-1 rounded">npx hardhat run scripts/deploy/04_deploy_nft.ts --network polygon</code>
+        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="text-emerald-400/70 font-mono text-xs">
+          LIVE ON POLYGON MAINNET — 15/15 Genesis Agents minted. Contract: 0x615Fd599...b05aed
         </span>
         <Link href="/fund" className="ml-auto text-xs text-yellow-400/50 hover:text-yellow-400 font-mono whitespace-nowrap">
           Support Protocol →

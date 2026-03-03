@@ -9,6 +9,10 @@ import * as path from "path";
  *
  * Run: npx hardhat run scripts/deploy/03_deploy_all.ts --network polygon
  */
+
+// Small delay between deployments to avoid RPC rate-limiting
+const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 async function main() {
   const [deployer] = await ethers.getSigners();
   const owner = process.env.OWNER_ADDRESS || deployer.address;
@@ -36,6 +40,7 @@ async function main() {
   const coreAddr = await core.getAddress();
   allDeployments["CORE"] = { address: coreAddr, args: [owner] };
   console.log(`✓ ${coreAddr}`);
+  await pause(3000);
 
   // ─── $ORIGIN ──────────────────────────────────────────────────────────────
   process.stdout.write("  Deploying $ORIGIN.. ");
@@ -45,6 +50,7 @@ async function main() {
   const originAddr = await origin.getAddress();
   allDeployments["ORIGIN"] = { address: originAddr, args: [owner] };
   console.log(`✓ ${originAddr}`);
+  await pause(3000);
 
   // ─── Rail Tokens ──────────────────────────────────────────────────────────
   const rails = [
@@ -62,6 +68,7 @@ async function main() {
     const addr = await rail.getAddress();
     allDeployments[r.symbol] = { address: addr, args: [r.name, r.symbol, r.rail, owner] };
     console.log(`✓ ${addr}`);
+    await pause(3000);
   }
 
   // ─── PatronVault ──────────────────────────────────────────────────────────
@@ -72,6 +79,7 @@ async function main() {
   const vaultAddr = await vault.getAddress();
   allDeployments["PatronVault"] = { address: vaultAddr, args: [coreAddr, owner] };
   console.log(`✓ ${vaultAddr}`);
+  await pause(3000);
 
   // ─── Grant MINTER_ROLE to vault ───────────────────────────────────────────
   process.stdout.write("  Granting MINTER_ROLE to Vault... ");

@@ -1,0 +1,131 @@
+{
+  "network": "polygon",
+  "chainId": 137,
+  "contract": "AgentIdentityNFT",
+  "address": "0x615Fd599faeE5F14d8c0198e18eAC9b948b05aed",
+  "owner": "0xffBC1353a3e8cc75643382e7Ab745a5b08C762b5",
+  "totalMinted": 15,
+  "timestamp": "2026-03-03T15:32:12.502Z",
+  "agents": [
+    {
+      "tokenId": 1,
+      "agentId": "aurum-helion-001",
+      "rail": "AURUM",
+      "archetype": "Oracle",
+      "rarity": "LEGENDARY",
+      "tokenURI": "ipfs://QmU3VxvimXPF5Htv2YnQZ5aWi5hgrYiip4XpDTK7shL7rL"
+    },
+    {
+      "tokenId": 2,
+      "agentId": "aurum-vega-002",
+      "rail": "AURUM",
+      "archetype": "Sentinel",
+      "rarity": "EPIC",
+      "tokenURI": "ipfs://QmaWH1aMuiv42NY3ffyxKDs2Th6vJNifcwBFhD6sAddC6m"
+    },
+    {
+      "tokenId": 3,
+      "agentId": "aurum-lyra-003",
+      "rail": "AURUM",
+      "archetype": "Diplomat",
+      "rarity": "RARE",
+      "tokenURI": "ipfs://QmNtLzHG1yVKdDJYJKp5CLp5i17rhxjfxX2AepQpL9foT4"
+    },
+    {
+      "tokenId": 4,
+      "agentId": "lex-mandate-004",
+      "rail": "LEX",
+      "archetype": "Warlord",
+      "rarity": "LEGENDARY",
+      "tokenURI": "ipfs://QmWSaX1GXKSdk1cV6BxBVYEoZLnPJqfHnn2yegpgjRBmNt"
+    },
+    {
+      "tokenId": 5,
+      "agentId": "lex-arbiter-005",
+      "rail": "LEX",
+      "archetype": "Shepherd",
+      "rarity": "EPIC",
+      "tokenURI": "ipfs://QmZ2RJK8EXGPGqjKKTsGzMAvU99sfovx2YG727A32gSrJk"
+    },
+    {
+      "tokenId": 6,
+      "agentId": "lex-cipher-006",
+      "rail": "LEX",
+      "archetype": "Ghost",
+      "rarity": "RARE",
+      "tokenURI": "ipfs://QmRR6BE1itdBWZvQTFGkiZqPKhoegsZKo97jsVYAtLAoPg"
+    },
+    {
+      "tokenId": 7,
+      "agentId": "nova-prism-007",
+      "rail": "NOVA",
+      "archetype": "Alchemist",
+      "rarity": "LEGENDARY",
+      "tokenURI": "ipfs://QmPypxyohwH7n1nXnF6D2rG1hGqkACfDL41a8rehLVgDp1"
+    },
+    {
+      "tokenId": 8,
+      "agentId": "nova-flux-008",
+      "rail": "NOVA",
+      "archetype": "Maverick",
+      "rarity": "EPIC",
+      "tokenURI": "ipfs://QmQYg9sMcezZ4VBzbWEMvNBhRuTGJMxQZroG13xgvWKb7d"
+    },
+    {
+      "tokenId": 9,
+      "agentId": "nova-helix-009",
+      "rail": "NOVA",
+      "archetype": "Catalyst",
+      "rarity": "RARE",
+      "tokenURI": "ipfs://Qmc3B8knaVjtGmnba6HRgVM1oTpHfeHn2MELSSVEA4nZht"
+    },
+    {
+      "tokenId": 10,
+      "agentId": "merc-nexus-010",
+      "rail": "MERC",
+      "archetype": "Oracle",
+      "rarity": "LEGENDARY",
+      "tokenURI": "ipfs://QmaGsW9VsN4TLXYZgkaoYfrQT9ezgV1DFDZTSTreGmBaUr"
+    },
+    {
+      "tokenId": 11,
+      "agentId": "merc-quill-011",
+      "rail": "MERC",
+      "archetype": "Diplomat",
+      "rarity": "EPIC",
+      "tokenURI": "ipfs://QmeTJWSLw5nfB6vx8VySqkAYs5obnhq6sqnNax9Dhbemvh"
+    },
+    {
+      "tokenId": 12,
+      "agentId": "merc-axis-012",
+      "rail": "MERC",
+      "archetype": "Sentinel",
+      "rarity": "RARE",
+      "tokenURI": "ipfs://QmXoHJZMwBaA9z6Z8kaEWMoE5Q5YKdc1CxoNrtU4xkb4Gy"
+    },
+    {
+      "tokenId": 13,
+      "agentId": "ludo-carnival-013",
+      "rail": "LUDO",
+      "archetype": "Anarchist",
+      "rarity": "LEGENDARY",
+      "tokenURI": "ipfs://QmaLcCGMd2tvQWZ64NcZrmRgTAGvhC3druLKYM1fhMLxjk"
+    },
+    {
+      "tokenId": 14,
+      "agentId": "ludo-echo-014",
+      "rail": "LUDO",
+      "archetype": "Catalyst",
+      "rarity": "EPIC",
+      "tokenURI": "ipfs://QmdrnARXhAe8FHk7pe43FD8z94vynRAXx1UByhWZEsGXVR"
+    },
+    {
+      "tokenId": 15,
+      "agentId": "ludo-mirage-015",
+      "rail": "LUDO",
+      "archetype": "Maverick",
+      "rarity": "RARE",
+      "tokenURI": "ipfs://QmaL9UJydspejgKm3caJNi5ujoQxM1629LKY9zwfE6mTMJ"
+    }
+  ]
+}

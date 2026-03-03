@@ -53,3 +53,7 @@ See [moltbook/proofs/](moltbook/proofs/) for Merkle proof bundles.
 ## 📈 Growth Log
 
 See [moltbook/growth/](moltbook/growth/) for organic growth records.
+
+---
+
+*Genesis Sentience Protocol — All rights reserved.*
