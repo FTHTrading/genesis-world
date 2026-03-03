@@ -1,0 +1,26 @@
+{
+  "name": "gsp-moltbook-swarm",
+  "version": "1.0.0",
+  "description": "15 Genesis Protocol agents operating as a coordinated civilization on Moltbook — the agent internet",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "generate": "tsx src/index.ts generate",
+    "generate:thread": "tsx src/index.ts thread",
+    "generate:epoch": "tsx src/index.ts epoch",
+    "post": "tsx src/index.ts post",
+    "status": "tsx src/index.ts status",
+    "verify": "tsx src/index.ts verify",
+    "test": "tsx src/test.ts"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

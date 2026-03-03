@@ -21,3 +21,8 @@ Thumbs.db
 .env
 .env.local
 contracts-evm/scripts/derive-key.ts
+
+# Moltbook Swarm runtime data
+moltbook-swarm/data/
+moltbook-swarm/node_modules/
+moltbook-swarm/dist/
