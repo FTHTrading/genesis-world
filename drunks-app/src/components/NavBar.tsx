@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
   { href: "/", label: "HOME" },
+  { href: "/nexus", label: "NEXUS", hot: true },
   { href: "/arena", label: "ARENA" },
   { href: "/leaderboard", label: "LEADERBOARD" },
   { href: "/civic", label: "CIVIC" },
@@ -43,6 +44,21 @@ export default function NavBar() {
                   key={item.href}
                   href={item.href}
                   className="ml-2 px-4 py-1.5 text-[0.7rem] font-mono font-bold tracking-widest rounded bg-gradient-to-r from-[var(--accent-gold)] to-[#FFA500] text-[#0B0F1A] hover:opacity-90 transition-opacity animate-pulse-glow"
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+            if ((item as any).hot) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-3 py-1.5 text-[0.7rem] font-mono font-bold tracking-widest rounded transition-all ${
+                    active
+                      ? "text-[var(--accent-green)] bg-[rgba(0,230,118,0.1)] border border-[rgba(0,230,118,0.3)]"
+                      : "text-[var(--accent-green)] hover:bg-[rgba(0,230,118,0.06)] border border-[rgba(0,230,118,0.15)] animate-pulse-glow"
+                  }`}
                 >
                   {item.label}
                 </Link>
