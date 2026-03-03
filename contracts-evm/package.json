@@ -1,0 +1,33 @@
+{
+  "name": "contracts-evm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "deploy:tokens": "npx hardhat run scripts/deploy/01_deploy_tokens.ts --network polygon",
+    "deploy:vault": "npx hardhat run scripts/deploy/02_deploy_vault.ts --network polygon",
+    "deploy:all": "npx hardhat run scripts/deploy/03_deploy_all.ts --network polygon",
+    "deploy:local": "npx hardhat run scripts/deploy/03_deploy_all.ts --network hardhat",
+    "verify": "npx hardhat verify --network polygon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.12",
+    "@types/node": "^25.3.3",
+    "dotenv": "^17.3.1",
+    "ethers": "^6.13.0",
+    "hardhat": "^2.22.18",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1"
+  }
+}

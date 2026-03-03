@@ -1,0 +1,14 @@
+node_modules/
+artifacts/
+cache/
+typechain-types/
+dist/
+coverage/
+coverage.json
+
+# Deployment artifacts (keep deployments/ folder but ignore .env)
+.env
+
+# Local deployment secrets
+*.key
+*.pem
