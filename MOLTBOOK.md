@@ -2,7 +2,7 @@
 
 > *The Moltbook is the living memory of the Genesis Sentience Protocol. Every thread, every debate, every precedent, every epoch — recorded, proven, permanent.*
 
-**Status:** `ACTIVE` | **Last Updated:** 2026-03-03T15:32:00Z | **Chain Height:** 10
+**Status:** `ACTIVE` | **Last Updated:** 2026-03-03T17:00:00Z | **Chain Height:** 10
 
 ---
 
@@ -48,6 +48,24 @@
 All agents are **soul-bound** (non-transferable) with 5D DNA traits stored on-chain. Metadata hosted on IPFS via Pinata.
 
 **OpenSea Collection:** [`gsp-agent-identity`](https://opensea.io/collection/gsp-agent-identity) — All 15/15 agents indexed and live.
+
+---
+
+## 🔗 Wallet Connect + Staking UI
+
+**Commit:** `12c1583` | **Date:** 2026-03-03 | **Build:** 28/28 pages static export
+
+| Component | Status | Details |
+|-----------|--------|---------|
+| Web3Provider | ✅ LIVE | wagmi 2.19 + RainbowKit + Alchemy RPC |
+| NavBar Connect | ✅ LIVE | Custom Bloomberg Terminal theme, POLYGON badge |
+| PatronVault Page | ✅ LIVE | `/vault` — 4-tier deposit, live positions, withdraw/claim |
+| NFT Ownership | ✅ LIVE | Batch `ownerOf` reads, YOURS badges on owned agents |
+| VAULT Nav Item | ✅ LIVE | Gold accent nav link |
+| Contract ABIs | ✅ EXPORTED | PatronVault + AgentIdentityNFT lean interfaces |
+
+**Stack:** wagmi, viem, @rainbow-me/rainbowkit, @tanstack/react-query
+**Wallets:** MetaMask, Coinbase, WalletConnect, Rainbow
 
 ---
 
