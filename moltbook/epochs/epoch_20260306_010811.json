@@ -1,0 +1,366 @@
+{
+  "protocol": "Genesis Sentience Protocol",
+  "version": "0.1.0",
+  "validators": 25,
+  "realms": [
+    {
+      "name": "aureum",
+      "rail": "AURUM",
+      "validators": 25,
+      "agents": 3
+    },
+    {
+      "name": "lexicon",
+      "rail": "LEX",
+      "validators": 25,
+      "agents": 3
+    },
+    {
+      "name": "nova",
+      "rail": "NOVA",
+      "validators": 25,
+      "agents": 3
+    },
+    {
+      "name": "mercator",
+      "rail": "MERC",
+      "validators": 25,
+      "agents": 3
+    },
+    {
+      "name": "ludos",
+      "rail": "LUDO",
+      "validators": 25,
+      "agents": 3
+    }
+  ],
+  "agents": 15,
+  "epochs": [
+    {
+      "epoch": 0,
+      "block_height": 1,
+      "proposer": "val-0017",
+      "entropy_mutations": 13,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009990059890409044,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "5c74fade12d35db7e8fd37487f0a253acf9ec3cade603d01ccf037f49c9334bc",
+      "narrative_summary": "Epoch 0: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "2b83e3f7e2d2149edce7b43ca11debe0635ebf9557d98ddb5483b966e745e370"
+    },
+    {
+      "epoch": 1,
+      "block_height": 2,
+      "proposer": "val-0021",
+      "entropy_mutations": 14,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009980139522350522,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "3c421204802214d84c23aef7273b3fd53c2a4c253a3d727a4fadc37a51788311",
+      "narrative_summary": "Epoch 1: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "dd1ba8455520030461a3391b9e1f1ccf19d0e458847629a61f7ce4d68192378e"
+    },
+    {
+      "epoch": 2,
+      "block_height": 3,
+      "proposer": "val-0020",
+      "entropy_mutations": 10,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009970238837071343,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "fb3cd04a8b315a21496b197fe00c78571f68c2af720681f682ac317a4e16cd08",
+      "narrative_summary": "Epoch 2: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "729b77fea8e058e1c6975dcb0b52ee5c00a27110255cdd89e45e56e242aad5d1"
+    },
+    {
+      "epoch": 3,
+      "block_height": 4,
+      "proposer": "val-0015",
+      "entropy_mutations": 7,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009960357776051315,
+      "agents_active": 5,
+      "governance_event": "PROPOSAL: Epoch 3 inflation adjustment → APPROVED (20-5-3)",
+      "narrative_hash": "e7c82a8180d7b23f6495d093fc783fe351b073518333af6103b32308de2966a8",
+      "narrative_summary": "Epoch 3: 8 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 2,
+      "debate_root": "6c04be78ba6a4729a799d41d43d1d143a16920a8a143cee51ca5779145a87996",
+      "patron_pool": 150000,
+      "patron_proof_root": "927a09adb4f2f7c4b308932aa5d8e0596a3d4db8994465a035be8ac4e7bfb3cb"
+    },
+    {
+      "epoch": 4,
+      "block_height": 5,
+      "proposer": "val-0015",
+      "entropy_mutations": 13,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009950496281002014,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "53687ac7f832cdac5231cbb8e81425639a285e869b5d3162cf429b540c6c71f1",
+      "narrative_summary": "Epoch 4: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "6f703b04539f4b88b79dec963075b72bcc9389196a4dbca553ea7fc311d2fad3"
+    },
+    {
+      "epoch": 5,
+      "block_height": 6,
+      "proposer": "val-0024",
+      "entropy_mutations": 15,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009940654293865623,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "5e72ed5776d8c2d226373b816a39865443aafbf9aca74926cdedeb6040e3a14c",
+      "narrative_summary": "Epoch 5: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "2b53d52f77eee0d362401998db071430a81823fe7c5e26f38f9476b20e1244c2"
+    },
+    {
+      "epoch": 6,
+      "block_height": 7,
+      "proposer": "val-0001",
+      "entropy_mutations": 13,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009930831756813792,
+      "agents_active": 5,
+      "governance_event": "PROPOSAL: Epoch 6 inflation adjustment → APPROVED (20-5-3)",
+      "narrative_hash": "44965fda6524a509fbddc74ac8f8268d8e3a3cfbb6f44c57553e68dfc863af00",
+      "narrative_summary": "Epoch 6: 8 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 2,
+      "debate_root": "05530b857b6d7e1c0960e375563e33166223b8abd8a4bde004de096500e2f038",
+      "patron_pool": 150000,
+      "patron_proof_root": "00d74e04cceeb26211fdddd1fc1bb61ee768945445c103311412cdaf0f0d4d29"
+    },
+    {
+      "epoch": 7,
+      "block_height": 8,
+      "proposer": "val-0013",
+      "entropy_mutations": 10,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009921028612246518,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "7fbe23ecbe19cdec4910a8ce3a08c7cdb60a545a8d8443159ef1dac248b9636d",
+      "narrative_summary": "Epoch 7: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "180ef20fff5ce4e1dd8c944838af8edd2809f9920326f392caa8d6b43e1708ff"
+    },
+    {
+      "epoch": 8,
+      "block_height": 9,
+      "proposer": "val-0013",
+      "entropy_mutations": 10,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.0009911244802791007,
+      "agents_active": 5,
+      "governance_event": null,
+      "narrative_hash": "ddf55a3df4001c191d4531ff10c6c2428a7dc6e4d7b98849d8dfe9f575f565f9",
+      "narrative_summary": "Epoch 8: 7 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 1,
+      "debate_root": "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "patron_pool": 150000,
+      "patron_proof_root": "877a8ac76856774ffa94b1700f16ae6b3456b17432e0375e429569808a98db2d"
+    },
+    {
+      "epoch": 9,
+      "block_height": 10,
+      "proposer": "val-0000",
+      "entropy_mutations": 12,
+      "emission_total": 1000000,
+      "emission_burned": 5000,
+      "staking_rewards": 700000,
+      "inflation_rate": 0.000990148027130056,
+      "agents_active": 5,
+      "governance_event": "PROPOSAL: Epoch 9 inflation adjustment → APPROVED (20-5-3)",
+      "narrative_hash": "284907390b66d2f6d26a5a32679449f34fd58aae6b9fbee77903c0808776319f",
+      "narrative_summary": "Epoch 9: 8 actions across 5 agents in Core Mesh.",
+      "civic_threads_created": 2,
+      "debate_root": "10d268d2177e4ddf11de2bb5f670385c1aa7c8bcb2468f5dc0e0f55eccb31c0f",
+      "patron_pool": 150000,
+      "patron_proof_root": "7c22ffe734e40ba020e30d5da6a3a5bb08bd87f63e3a909fe903988cf164e728"
+    }
+  ],
+  "summary": {
+    "total_staked": 12500000,
+    "validator_count": 25,
+    "active_agents": 15,
+    "total_net_value": 6250,
+    "total_compute_spent": 2500,
+    "total_events": 86,
+    "final_height": 10,
+    "final_epoch": 0,
+    "annual_inflation_rate": 0.009851972869944057,
+    "last_narrative_hash": "284907390b66d2f6d26a5a32679449f34fd58aae6b9fbee77903c0808776319f"
+  },
+  "civic": {
+    "total_threads": 14,
+    "total_debate_nodes": 6,
+    "total_debate_edges": 3,
+    "total_precedents": 3,
+    "reputation_actors": 43,
+    "debate_roots": [
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "6c04be78ba6a4729a799d41d43d1d143a16920a8a143cee51ca5779145a87996",
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "05530b857b6d7e1c0960e375563e33166223b8abd8a4bde004de096500e2f038",
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "258850049d7083db3e682d33d81f3976fba6aaeb71b2eb1e8a3fe211c74bc504",
+      "10d268d2177e4ddf11de2bb5f670385c1aa7c8bcb2468f5dc0e0f55eccb31c0f"
+    ],
+    "precedent_chain_head": "2317a8ae9fbdbbd1ca17445cd85eb9f7e9004cd9aa55f40dbcb369e01da3b41c"
+  },
+  "patron": {
+    "total_capital": 5732853,
+    "total_backers": 15,
+    "total_vaults": 15,
+    "leaderboard": [
+      {
+        "account_id": "patron-ATLAS",
+        "total_deposited": 1308027,
+        "total_rewards": 276967,
+        "agents_backed": 13,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-FLUX",
+        "total_deposited": 1308027,
+        "total_rewards": 276967,
+        "agents_backed": 13,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-NEXUS",
+        "total_deposited": 803208,
+        "total_rewards": 321232,
+        "agents_backed": 8,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-MERIDIAN",
+        "total_deposited": 658027,
+        "total_rewards": 139253,
+        "agents_backed": 13,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-CIPHER",
+        "total_deposited": 658027,
+        "total_rewards": 139253,
+        "agents_backed": 13,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-DRIFT",
+        "total_deposited": 403208,
+        "total_rewards": 161098,
+        "agents_backed": 8,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-SOLACE",
+        "total_deposited": 203027,
+        "total_rewards": 42860,
+        "agents_backed": 13,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-QUORUM",
+        "total_deposited": 123208,
+        "total_rewards": 49001,
+        "agents_backed": 8,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-EPOCH",
+        "total_deposited": 123208,
+        "total_rewards": 49001,
+        "agents_backed": 8,
+        "tier": "ARCHITECT"
+      },
+      {
+        "account_id": "patron-VECTOR",
+        "total_deposited": 47027,
+        "total_rewards": 9811,
+        "agents_backed": 13,
+        "tier": "PATRON"
+      },
+      {
+        "account_id": "patron-BASTION",
+        "total_deposited": 27208,
+        "total_rewards": 10569,
+        "agents_backed": 8,
+        "tier": "PATRON"
+      },
+      {
+        "account_id": "patron-VERTEX",
+        "total_deposited": 27208,
+        "total_rewards": 10569,
+        "agents_backed": 8,
+        "tier": "PATRON"
+      },
+      {
+        "account_id": "patron-PRISM",
+        "total_deposited": 21027,
+        "total_rewards": 4299,
+        "agents_backed": 13,
+        "tier": "PATRON"
+      },
+      {
+        "account_id": "patron-ZENITH",
+        "total_deposited": 11208,
+        "total_rewards": 4165,
+        "agents_backed": 8,
+        "tier": "PATRON"
+      },
+      {
+        "account_id": "patron-CRUCIBLE",
+        "total_deposited": 11208,
+        "total_rewards": 4165,
+        "agents_backed": 8,
+        "tier": "PATRON"
+      }
+    ],
+    "lifetime_pool_distributed": 1500000,
+    "final_proof_root": "ce1b51a4274488de708576feb04372b8c64c7d0dc8623c2c7f519fb25e4a14be"
+  }
+}
