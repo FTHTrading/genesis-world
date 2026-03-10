@@ -53,7 +53,7 @@ jobs:
         run: cargo run -p gsp-demo -- --export /tmp/report.json
 
       - name: Upload report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: gsp-epoch-report
           path: /tmp/report.json
@@ -84,7 +84,7 @@ jobs:
         run: npm run build
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: drunks-app-build
           path: drunks-app/out
