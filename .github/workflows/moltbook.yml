@@ -39,7 +39,7 @@ jobs:
       epoch_hash: ${{ steps.simulate.outputs.hash }}
       thread_count: ${{ steps.count.outputs.threads }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -97,7 +97,7 @@ jobs:
     needs: simulate-epoch
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -278,7 +278,7 @@ jobs:
     needs: [simulate-epoch, civic-generation, health-check]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
 
