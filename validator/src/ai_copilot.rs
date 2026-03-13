@@ -10,7 +10,7 @@
 //! Co-pilots must submit decision hashes BEFORE execution.
 //! Validators vote on AI actions.
 
-use gsp_kernel::{Epoch, ValidatorId, ValidatorWeight};
+use gsp_kernel::{Epoch, ValidatorId};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 

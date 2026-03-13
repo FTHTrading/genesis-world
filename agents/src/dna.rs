@@ -8,7 +8,6 @@
 //! to the template.
 
 use gsp_kernel::{GeneticVector, RailType};
-use rand::Rng;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 

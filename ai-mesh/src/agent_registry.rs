@@ -1,8 +1,7 @@
 //! Agent Registry — Central identity ledger for all AI agents
 
 use gsp_agents::identity::AgentIdentity;
-use gsp_kernel::{AgentBirthCertificate, RailType, RealmId};
-use serde::{Deserialize, Serialize};
+use gsp_kernel::{AgentBirthCertificate, RealmId};
 use std::collections::HashMap;
 
 /// Central agent registry

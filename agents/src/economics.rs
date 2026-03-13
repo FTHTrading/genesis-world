@@ -10,7 +10,6 @@
 
 use gsp_kernel::Epoch;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 /// Agent's economic account
 #[derive(Debug, Clone, Serialize, Deserialize)]

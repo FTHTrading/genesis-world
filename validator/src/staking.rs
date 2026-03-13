@@ -17,6 +17,7 @@ pub struct StakePosition {
 }
 
 /// The Staking Engine
+#[allow(dead_code)]
 pub struct StakingEngine {
     positions: HashMap<ValidatorId, StakePosition>,
     unbonding_period: u64,

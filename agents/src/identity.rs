@@ -7,7 +7,7 @@
 //! - Reputation score
 //! - Performance metrics
 
-use gsp_kernel::{AgentBirthCertificate, Epoch, GeneticVector, RailType, RealmId};
+use gsp_kernel::{AgentBirthCertificate, Epoch, GeneticVector};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 

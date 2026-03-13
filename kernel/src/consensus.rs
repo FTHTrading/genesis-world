@@ -48,6 +48,7 @@ impl Default for ConsensusConfig {
 }
 
 /// The Trinity Consensus engine
+#[allow(dead_code)]
 pub struct TrinityConsensus {
     config: ConsensusConfig,
     validators: Vec<ValidatorNode>,
@@ -112,7 +113,7 @@ impl TrinityConsensus {
 
             // Calculate resilience score
             let total_stake: u64 = nodes.iter().map(|n| n.collateral).sum();
-            let total_weight: u32 = nodes.iter().map(|n| n.weight).sum();
+            let _total_weight: u32 = nodes.iter().map(|n| n.weight).sum();
 
             // Nakamoto coefficient approximation
             let mut sorted_stakes: Vec<u64> = nodes.iter().map(|n| n.collateral).collect();
@@ -224,7 +225,7 @@ impl TrinityConsensus {
     /// Returns true if block reaches confidence threshold
     pub fn check_snowman_finality(
         &self,
-        block_height: BlockHeight,
+        _block_height: BlockHeight,
         confirmations: &[ValidatorId],
     ) -> bool {
         let confirming_stake: u64 = confirmations

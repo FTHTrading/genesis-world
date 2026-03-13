@@ -80,6 +80,7 @@ pub struct ConstitutionalCheck {
 }
 
 /// The MCP Orchestrator
+#[allow(dead_code)]
 pub struct MCPOrchestrator {
     proposals: Vec<PolicyProposal>,
     veto_window_blocks: u64,

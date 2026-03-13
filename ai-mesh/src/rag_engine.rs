@@ -8,7 +8,7 @@
 //!
 //! AI queries knowledge → response proof hash → stored in block → auditable forever.
 
-use gsp_kernel::{Epoch, Hash256, RealmId};
+use gsp_kernel::{Epoch, RealmId};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::HashMap;

@@ -9,7 +9,6 @@
 //!
 //! Reputation affects: autonomy level, staking weight, compute allocation
 
-use gsp_kernel::Epoch;
 use serde::{Deserialize, Serialize};
 
 /// Reputation components

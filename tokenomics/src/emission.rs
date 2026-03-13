@@ -86,7 +86,7 @@ impl EmissionEngine {
         &mut self,
         epoch: Epoch,
         fee_revenue: u64,
-        total_staked: u64,
+        _total_staked: u64,
         ai_inflation_adjustment: Option<f64>,
     ) -> EpochEmission {
         // Apply halving

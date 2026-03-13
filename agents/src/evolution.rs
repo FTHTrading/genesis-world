@@ -7,10 +7,8 @@
 //! Forbidden: rail migration, constitutional override, infinite expansion
 
 use crate::dna::AgentDNA;
-use crate::identity::AgentIdentity;
 use gsp_kernel::Epoch;
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 
 /// Evolution proposal from an agent
 #[derive(Debug, Clone, Serialize, Deserialize)]

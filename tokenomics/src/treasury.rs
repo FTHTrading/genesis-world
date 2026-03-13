@@ -9,7 +9,6 @@
 
 use gsp_kernel::{Epoch, RailType, RealmId};
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 
 /// Treasury state for a single rail
@@ -56,6 +55,7 @@ pub struct FundingRound {
 }
 
 /// The Treasury Engine
+#[allow(dead_code)]
 pub struct TreasuryEngine {
     core_treasury: u64,
     origin_treasury: u64,

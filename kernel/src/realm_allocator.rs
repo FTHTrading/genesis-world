@@ -35,7 +35,7 @@ impl RealmAllocator {
 
         let mut realms = Vec::new();
         let mut all_agent_births = Vec::new();
-        let total_validators = topology.validators.len();
+        let _total_validators = topology.validators.len();
 
         for realm_config in &seed.realms {
             let realm_id = RealmId::new(&realm_config.name);
@@ -191,6 +191,7 @@ impl RealmAllocator {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
 
     #[test]
     fn test_realm_allocation() {
