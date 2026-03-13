@@ -6,6 +6,7 @@
 // Input:  An epoch number.
 // Output: A complete civilization state with:
 //         - All agent discourse (scripted + reactive)
+//         - Agent cognitive cycles (tool-augmented reasoning)
 //         - Reputation scores for every agent
 //         - Debate outcomes
 //         - DNA mutations applied
@@ -17,6 +18,7 @@
 //   2. Generate epoch content (existing system)
 //   3. Plan and execute dialogue threads (existing system)
 //   4. Run reactive swarm scan (new — emergent responses)
+//  4½. Run swarm cognition — agents use tools (Tool Brain)
 //   5. Score reputation for all agents (new)
 //   6. Resolve debates (new)
 //   7. Apply DNA mutations based on reputation + debates (new)
@@ -29,6 +31,7 @@
 
 import {
   CivilizationState,
+  CognitiveAction,
   DNAVector,
   GeneratedPost,
   DialogueThread,
@@ -48,6 +51,8 @@ import {
   generateAnchorPayload, verifyChain,
 } from "./epoch-anchor.js";
 import { Ledger } from "./ledger.js";
+import { runSwarmCognition, formatSwarmCognition } from "./cognitive.js";
+import { ToolRouter, ToolRegistry, globalRegistry } from "./tools.js";
 import { writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 
@@ -60,6 +65,8 @@ export interface EvolveOptions {
   verbose?: boolean;
   saveOutputs?: boolean;
   maxReactivePerAgent?: number;
+  enableCognition?: boolean;
+  hfApiToken?: string;
 }
 
 export interface EvolveResult {
@@ -67,6 +74,7 @@ export interface EvolveResult {
   posts: GeneratedPost[];
   threads: DialogueThread[];
   reactiveResponses: ReactiveResponse[];
+  cognitiveActions: CognitiveAction[];
   summary: string;
 }
 
@@ -76,7 +84,7 @@ export interface EvolveResult {
  * This is the civilization's heartbeat.
  */
 export async function evolve(options: EvolveOptions): Promise<EvolveResult> {
-  const { epoch, verbose = false, saveOutputs = true, maxReactivePerAgent = 3 } = options;
+  const { epoch, verbose = false, saveOutputs = true, maxReactivePerAgent = 3, enableCognition = true, hfApiToken } = options;
   const log = verbose ? console.log : () => {};
 
   log(`\n  ═══ CIVILIZATION EVOLUTION — EPOCH ${epoch} ═══\n`);
@@ -129,6 +137,24 @@ export async function evolve(options: EvolveOptions): Promise<EvolveResult> {
 
   // Combine all posts for reputation scoring
   const allPosts = [...posts, ...reactiveResponses.map(r => r.post)];
+
+  // ─── 4½. Swarm Cognition (Tool Brain) ───
+  let cognitiveActions: CognitiveAction[] = [];
+  if (enableCognition) {
+    log("  [4½] Running swarm cognition (Tool Brain)...");
+    const registry = globalRegistry;
+    const router = new ToolRouter(registry, hfApiToken || process.env.HF_API_TOKEN);
+    cognitiveActions = await runSwarmCognition(epoch, router, registry, allPosts);
+    const totalToolCalls = cognitiveActions.reduce((s, a) => s + a.plan.length, 0);
+    const successCount = cognitiveActions.reduce((s, a) => s + a.results.filter(r => r.success).length, 0);
+    log(`    ${cognitiveActions.length} agents completed cognitive cycles`);
+    log(`    ${totalToolCalls} tool calls (${successCount} successful)`);
+    if (verbose) {
+      log(formatSwarmCognition(cognitiveActions));
+    }
+  } else {
+    log("  [4½] Cognition disabled — agents in scripted mode");
+  }
 
   // ─── 5. Discourse analysis ───
   log("  [5/9] Analyzing discourse graph...");
@@ -213,7 +239,7 @@ export async function evolve(options: EvolveOptions): Promise<EvolveResult> {
   }
 
   // ─── Summary ───
-  const summary = buildSummary(epochState, mutations, reactiveResponses, debates);
+  const summary = buildSummary(epochState, mutations, reactiveResponses, debates, cognitiveActions);
   log(`\n${summary}`);
 
   return {
@@ -221,6 +247,7 @@ export async function evolve(options: EvolveOptions): Promise<EvolveResult> {
     posts: allPosts,
     threads,
     reactiveResponses,
+    cognitiveActions,
     summary,
   };
 }
@@ -294,6 +321,7 @@ function buildSummary(
   mutations: MutationEvent[],
   reactive: ReactiveResponse[],
   debates: DebateOutcome[],
+  cognitiveActions: CognitiveAction[] = [],
 ): string {
   const lines: string[] = [];
   lines.push("  ╔═══════════════════════════════════════════════════════════════╗");
@@ -303,6 +331,8 @@ function buildSummary(
   lines.push(`  ║  Reactive:    ${String(reactive.length).padStart(4)} emergent responses                  ║`);
   lines.push(`  ║  Debates:     ${String(debates.length).padStart(4)} resolved                             ║`);
   lines.push(`  ║  Mutations:   ${String(mutations.length).padStart(4)} DNA changes                         ║`);
+  const toolCalls = cognitiveActions.reduce((s, a) => s + a.plan.length, 0);
+  lines.push(`  ║  Tool Calls:  ${String(toolCalls).padStart(4)} cognitive actions                   ║`);
   lines.push(`  ║  Cross-Rail:  ${String(state.discourse.crossRailExchanges).padStart(4)} exchanges                          ║`);
   lines.push("  ║                                                               ║");
   lines.push(`  ║  Civilization Hash:                                           ║`);

@@ -14,6 +14,8 @@ import { pick, seededRng, hash, fmt } from "./utils.js";
 import { evolve, evolveRange, inspectChain, inspectEpoch } from "./civilization.js";
 import { formatDrift } from "./evolution.js";
 import { loadHistory } from "./epoch-anchor.js";
+import { runSwarmCognition, runCognitiveCycle, formatSwarmCognition, formatCognitiveAction } from "./cognitive.js";
+import { ToolRouter, ToolRegistry, globalRegistry, formatToolRegistry } from "./tools.js";
 
 // ═══════════════════════════════════════════════
 // COMMANDS
@@ -30,6 +32,8 @@ const COMMANDS: Record<string, string> = {
   evolve:      "Run full civilization evolution cycle",
   chain:       "Inspect civilization proof chain",
   drift:       "Show DNA drift from genesis",
+  think:       "Run cognitive cycle — agents use tools to reason",
+  tools:       "List all available tools and MCP servers",
   help:        "Show this help message",
 };
 
@@ -76,6 +80,12 @@ async function main(): Promise<void> {
       break;
     case "drift":
       await cmdDrift();
+      break;
+    case "think":
+      await cmdThink(flags);
+      break;
+    case "tools":
+      cmdTools();
       break;
     case "help":
     default:
@@ -354,6 +364,46 @@ async function cmdDrift(): Promise<void> {
 }
 
 // ═══════════════════════════════════════════════
+// THINK — Agent cognitive cycles (Tool Brain)
+// ═══════════════════════════════════════════════
+
+async function cmdThink(flags: Record<string, string>): Promise<void> {
+  const epoch = parseInt(flags.epoch || "10");
+  const agentId = flags.agent || flags.a;
+
+  const registry = globalRegistry;
+  const router = new ToolRouter(registry, process.env.HF_API_TOKEN);
+
+  if (agentId) {
+    // Single agent cognitive cycle
+    const agent = getAgent(agentId);
+    if (!agent) {
+      console.error(`  Agent not found: ${agentId}`);
+      console.log(`  Available: ${AGENTS.map(a => a.id).join(", ")}`);
+      return;
+    }
+
+    console.log(`  Running cognitive cycle for ${agent.displayName} (${agent.rail})...\n`);
+    registry.startEpoch(epoch);
+    const action = await runCognitiveCycle(agent, epoch, router, registry);
+    console.log(formatCognitiveAction(action));
+  } else {
+    // Full swarm cognition
+    console.log(`  Running swarm cognition for Epoch ${epoch}...\n`);
+    const actions = await runSwarmCognition(epoch, router, registry);
+    console.log(formatSwarmCognition(actions));
+  }
+}
+
+// ═══════════════════════════════════════════════
+// TOOLS — List available tools and MCP servers
+// ═══════════════════════════════════════════════
+
+function cmdTools(): void {
+  console.log(formatToolRegistry(globalRegistry));
+}
+
+// ═══════════════════════════════════════════════
 // HELP
 // ═══════════════════════════════════════════════
 
@@ -383,6 +433,11 @@ function cmdHelp(): void {
   console.log("    npx tsx src/index.ts chain");
   console.log("    npx tsx src/index.ts chain --epoch=5");
   console.log("    npx tsx src/index.ts drift");
+  console.log();
+  console.log("  Agent Tool Brain:\n");
+  console.log("    npx tsx src/index.ts think --epoch=10");
+  console.log("    npx tsx src/index.ts think --agent=aurum-helion-001 --epoch=10");
+  console.log("    npx tsx src/index.ts tools");
   console.log();
 }
 

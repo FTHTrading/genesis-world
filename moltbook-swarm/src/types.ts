@@ -330,3 +330,109 @@ export interface CivilizationHistory {
   epochs: CivilizationState[];
   headHash: string;              // latest civilizationHash
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// AGENT TOOL BRAIN — MCP INTEGRATION TYPES
+// ═══════════════════════════════════════════════════════════════════════
+
+/**
+ * A tool that an agent can invoke through the Tool Router.
+ * Mirrors MCP tool schema for interoperability.
+ */
+export interface AgentTool {
+  name: string;                  // e.g., "hf.embed", "chain.verify", "analyze.sentiment"
+  description: string;
+  provider: ToolProvider;
+  inputSchema: Record<string, ToolParamSchema>;
+  outputType: "text" | "embedding" | "classification" | "json" | "number";
+  costWeight: number;            // 0-1, how expensive this tool is to call
+  latencyMs: number;             // expected latency in ms
+  requiresAuth: boolean;
+}
+
+export interface ToolParamSchema {
+  type: "string" | "number" | "boolean" | "array" | "object";
+  description: string;
+  required: boolean;
+  default?: unknown;
+}
+
+/**
+ * Provider identity for a tool source (MCP server, built-in, etc.)
+ */
+export type ToolProvider =
+  | "hf-mcp"           // HuggingFace MCP server (evalstate/hf-mcp-server)
+  | "chain-prover"     // On-chain proof tools (read contracts, verify hashes)
+  | "builtin"          // Local deterministic tools (analyze, score, hash)
+  | "moltbook-api"     // Moltbook platform tools (post, read, search)
+  | "custom";          // User-defined tool providers
+
+/**
+ * A tool invocation by an agent.
+ */
+export interface ToolCall {
+  id: string;                    // unique call ID (SHA-256 of agent+tool+input+epoch)
+  agentId: string;
+  tool: string;                  // tool name
+  provider: ToolProvider;
+  input: Record<string, unknown>;
+  epoch: number;
+  timestamp: string;
+  reasoning: string;             // why the agent chose this tool (DNA-driven)
+}
+
+/**
+ * Result of a tool invocation.
+ */
+export interface ToolResult {
+  callId: string;
+  tool: string;
+  provider: ToolProvider;
+  output: unknown;
+  success: boolean;
+  error?: string;
+  latencyMs: number;
+  proofHash: string;             // SHA-256 of input+output for chain anchoring
+}
+
+/**
+ * A cognitive cycle — one agent's think → plan → act sequence.
+ */
+export interface CognitiveAction {
+  agentId: string;
+  epoch: number;
+  thought: string;               // what the agent is reasoning about
+  plan: ToolCall[];              // ordered tool calls the agent plans to make
+  results: ToolResult[];         // outcomes of executed tool calls
+  synthesis: string;             // how the agent synthesizes tool results into content
+  contentProduced?: GeneratedPost; // optional post generated from cognition
+  proofHash: string;             // SHA-256 of entire cognitive cycle
+}
+
+/**
+ * MCP server configuration entry.
+ */
+export interface MCPServerConfig {
+  id: string;                    // e.g., "hf-mcp-server"
+  name: string;
+  transport: "stdio" | "http" | "sse";
+  command?: string;              // for stdio transport
+  args?: string[];
+  url?: string;                  // for http/sse transport
+  apiKey?: string;
+  enabled: boolean;
+  tools: string[];               // tool names this server provides
+  permissions: MCPPermissions;
+}
+
+/**
+ * Security permissions for an MCP server.
+ */
+export interface MCPPermissions {
+  allowExec: boolean;            // can run shell commands (DANGEROUS)
+  allowFilesystem: boolean;      // can read/write files
+  allowHttp: boolean;            // can make outbound HTTP requests
+  allowModel: boolean;           // can invoke AI models
+  maxCallsPerEpoch: number;      // rate limit per evolution cycle
+  maxLatencyMs: number;          // timeout per call
+}
